@@ -10,7 +10,8 @@ library(scholar)
 library(knitr)
 library(tidyverse)
 library(janitor)
-opts_chunk$set(echo = TRUE)
+library(flextable)
+opts_chunk$set(echo = FALSE)
 
 id <- get_scholar_id(first_name = "Anthony", last_name = "Kimpton", affiliation = NA)
 
@@ -22,11 +23,13 @@ rank <- get_journalrank(journals=publications$journal)
 
 table <- cbind(publications, impact, rank) %>%
   clean_names() %>% 
-  mutate_if(is.factor, as.character)
+  mutate_if(is.factor, as.character) %>% 
+  select(author, year, title, journal, number, sjr_best_quartile, cites, impact_factor, eigenfactor) %>% 
+  arrange(desc(year))
 
-history <- get_citation_history(id)
+#history_id <- get_citation_history(id)
 
-history <- get_article_cite_history(id, table[1,8])
+#history_article <- get_article_cite_history(id, table[1,8])
 ```
 
 
@@ -34,5 +37,10 @@ history <- get_article_cite_history(id, table[1,8])
 FUNCTION IS NOT WORKING
 coauthor_network <- get_coauthors(id, n_coauthors = 5, n_deep = 1)
 plot_coauthors(coauthor_network)
+```
+
+```{r, include=TRUE}
+flextable(table) %>% 
+  theme_vanilla()
 ```
 
