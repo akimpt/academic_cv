@@ -1,14 +1,101 @@
 ---
 title: "Anthony Kimpton's resume"
 author: Anthony Kimpton
-date: "`r Sys.Date()`"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   pagedown::html_resume:
     # set it to true for a self-contained HTML page but it'll take longer to render
     self_contained: false
 # uncomment this line to produce HTML and PDF in RStudio:
-#knit: pagedown::chrome_print
+knit: pagedown::chrome_print
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, cache = FALSE)
+library(scholar)
+library(tidyverse)
+library(janitor)
+library(stringr)
+```
+
+```{r guides, eval=FALSE}
+# guide for this resume template
+browseURL("https://towardsdatascience.com/create-your-resume-with-pagedown-package-in-r-123ca6310d52")
+
+# api for keywords and ranked importance
+browseURL("https://api.emsidata.com/apis/skills")
+
+# site for icons
+browseURL("https://fontawesome.com/")
+
+# testing resume
+browseURL("https://resumeworded.com/results-v2")
+browseURL("https://www.jobscan.co/results/16564079")
+```
+
+```{r publications, include=FALSE}
+id <- get_scholar_id(first_name = "Anthony", last_name = "Kimpton", affiliation = NA)
+
+publications <- get_publications(id) %>%
+  clean_names() %>% 
+  filter(pubid != c("UeHWp8X0CEIC", "u5HHmVD_uO8C")) %>% 
+  transmute(title = str_to_sentence(title),
+         title = str_replace(title, "7. ", ""),
+         author = str_replace(author, "A Kimpton", "**A Kimpton**"),
+         journal = str_to_title(journal),
+         cites,
+         year,
+         pubid
+         ) %>% 
+  drop_na(journal)
+
+impact <- get_impactfactor(journals=publications$journal, max.distance = 0.1) %>% 
+  clean_names() %>% 
+  transmute(journal = str_to_title(journal),
+            impact_factor = round(impact_factor, 1)) %>% 
+  drop_na()
+
+rank <- get_journalrank(journals=publications$journal) %>% 
+  clean_names() %>% 
+  transmute(journal = str_to_title(journal),
+            sjr_best_quartile = as.character(sjr_best_quartile)) %>%
+  drop_na()
+
+peer_reviewed <- publications %>% 
+  left_join(impact, by = "journal") %>% 
+  left_join(rank, by = "journal") %>% 
+  mutate(journal = str_replace(journal, " Media Group", ""),
+         journal = str_replace(journal, " Media Trust", ""),
+         journal = str_replace(journal, "^", "*"),
+         journal = str_replace(journal, "$", "*")) %>% 
+  arrange(desc(year), author, title)
+
+the_conversation <- peer_reviewed %>% 
+  filter(journal == "*The Conversation*")
+
+peer_reviewed <- peer_reviewed %>% 
+  filter(journal != "*The Conversation*") 
+
+history_id <- get_citation_history(id)
+
+#history_x <- get_article_cite_history(id, "9yKSN-GCB0IC")
+
+predicted_h_index <- predict_h_index(id)
+
+#DE Acuna, S Allesina, KP Kording (2012) Future impact: Predicting scientific success. Nature 489, 201-202. doi: 10.1038/489201a.
+
+coauthor_network <- get_coauthors(id)
+
+profile <- get_profile(id)
+
+h_index <- profile$h_index
+
+total_cites <- profile$total_cites
+
+pub_stat <- function(y) {
+  peer_reviewed %>% filter(pubid == x) %>% pull(y)
+}
+```
 
 Aside
 ================================================================================
@@ -24,9 +111,9 @@ Contact Info {#contact}
 Skills {#skills}
 --------------------------------------------------------------------------------
 
-- geospatial, temporal, and textual statistical analysis of big data for explanatory models, machine learning for classification, variable selection, and regularization for predictive models
+- geospatial, temporal, and textual statistical analysis of big data for explanatory models,and machine learning for classification, variable selection, and regularization for predictive models
 
-- highly skilled in R (programming language), Stata, ArcGIS, Python, and SQL and familiar with Bash, Docker, HTML, and CSS, and employ advanced rMarkdown workflow for generating manuscripts, reports, presentations, APIs, static and interactive web pages and applications, and resumes...I would like to acknowledge the developers of R's [*scholar*](https://cran.r-project.org/web/packages/scholar/index.html) and [*pagedown*](https://github.com/rstudio/pagedown) packages for streamlining my resume updating and drafting. The version you are reading was last updated on `r Sys.Date()`.
+- highly skilled in R (programming language), Stata, ArcGIS, Python, and SQL and familiar with Bash, Docker, HTML, and CSS, and advanced rMarkdown workflow for generating manuscripts, reports, presentations, APIs, static and interactive web pages and applications, and for keeping academic resumes and metrics up to date...
 
 Main
 ================================================================================
@@ -34,25 +121,14 @@ Main
 Anthony Kimpton {#title}
 --------------------------------------------------------------------------------
 
-### Seeking Teaching and Research Position
+Academic Curriculum Vitae for the position of **lecturer** with expertise including **"Health/safety intersections"** and **"Big data, data science technology, and crime"** at Griffith Criminology and Griffith Criminology Institute. 
 
-I am seeking a *teaching research position* and am **well-suited** because blah blah.
-
-[https://towardsdatascience.com/create-your-resume-with-pagedown-package-in-r-123ca6310d52](https://towardsdatascience.com/create-your-resume-with-pagedown-package-in-r-123ca6310d52) is the guide for this resume template
-
-[https://api.emsidata.com/apis/skills](https://api.emsidata.com/apis/skills) is an api for keywords and ranked importance
-
-[https://fontawesome.com/](https://fontawesome.com/) for icons
-
-[https://resumeworded.com/results-v2](https://resumeworded.com/results-v2) and [https://www.jobscan.co/results/16564079](https://www.jobscan.co/results/16564079) for testing your resume
-
-For elaboration or clarification on any of my experience, skills, or career aims, please feel free to contact me.
+Please see accompanying ***Cover Letter*** and ***Selection Criteria Response***, and feel free to email [a.kimpton@uq.edu.au]([a.kimpton@uq.edu.au) or call +61 412 452 471 if seeking clarification or elaboration on any of the education, grant, awards, experience, skills, publications, or difficulty with reaching referees.
 
 Education {data-icon=graduation-cap data-concise=true}
 --------------------------------------------------------------------------------
 
 ### Doctor of Philosophy
-
 The University of Queensland’s School of Earth and Environmental Sciences
 
 Brisbane, Australia
@@ -104,22 +180,41 @@ Melbourne, Australia
 
 The University of Queensland’s Graduate School
 
-Brisbane, Australia
+N/A
 
 2020
 
 **Criteria**: both thesis examiners: Professors Alexis Comber and Kate Bowers describing the 2018 thesis is an outstanding theoretical, empirical, and applied research contributions requiring no changes.
 
+### Early Career Researcher Travel Grant
 
+The Institute of Australian Geographers
 
+N/A
 
-2020	The Institute of Australian Geographers’ Travel Grant
-Awarded $1,000 to present at the International Geographical Union Congress in Istanbul that has been postponed until national travel restrictions are lifted.
-2019	The School of Earth and Environmental Sciences’ Early Career Researcher Grant	
-Awarded $1,210 to attend the 2019 Australian Sociological Association Conference
-2013	The Australian Research Council’s Australian Post Graduate Award 
-Awarded $24,653 per annum throughout my PhD candidature
+2020
 
+**Aim**: competative grant funding travel to the 2020 International Geographical Union conference in Turkey (cancelled due to COVID)  
+
+### Early Career Researcher Grant
+
+The University of Queensland’s School of Earth and Environmental Sciences 
+
+N/A
+
+2019
+
+**Aim**: competative grant for travel and registration to present the 2019 Australian Sociological Association conference
+
+### Australian Postgraduate Award
+
+The Australian Research Council 
+
+N/A
+
+2019
+
+**Aim**: competative grant providing $24,653 per annum throughout PhD candidature
 
 Research Experience {data-icon=laptop}
 --------------------------------------------------------------------------------
@@ -128,7 +223,7 @@ Research Experience {data-icon=laptop}
 
 The Australian Urban Research Infrastructure Network and the University of Queensland’s School of Civil Engineering 
 
-Brisbane, Australia
+N/A
 
 2021
 
@@ -253,77 +348,327 @@ N/A
 
 **Role**: peer-review for journals including: Applied Geography; Applied Spatial Analysis and Policy; Australian Planner; Behavioural Research Methods; City, Culture and Society; Ecosystem Services; Environment and Behaviour; Environment and Planning B: Urban Analytics and City Science; Environmental Planning and Management; Geoforum; Housing and the Built Environment; Land Use Policy; Landscape and Urban Planning; Landscape Research; Population Research; Research in Crime and Delinquency; Security Journal; Social Science Research; Spatial Science; Springer Nature: Social Science; Sustainability; Sustainable Cities and Society; Transport Reviews; Travel Behaviour and Society; Urban Studies; and Urbanism: International Research on Placemaking and Urban Sustainability
 
-Research Publications {data-icon=file}
+Peer-Reviewed Publications   {data-icon=file}
 --------------------------------------------------------------------------------
 
-### Genetic and epigenetic signals are found predictive to the distribution of intra-individual divergence of alternative splicing.
+### Total cites = `r total_cites` and h-index = `r round(h_index,0)`
 
-Poster for 2013 International Conference of Genomics
-
-Qingdao, China
-
-2014
-
-**Yu L**, Chen B, Zhang Z.
-
-### ESCRT-0 complex modulates Rbf mutant cell survival by regulating Rhomboid endosomal trafficking and EGFR signaling.
-
-J Cell Sci. 2016 May 15;129(10):2075-84.
+Ten year h-index projection = `r filter(predicted_h_index, years_ahead == 10) %>% pull(h_index)` (see: Acuna et al. 2012 Future impact: Predicting scientific success *Nature*) 
 
 N/A
 
-2016 
+`r format(Sys.time(), '%Y')`
 
-Sheng Z, **Yu L**, Zhang T, Pei X, Li X, Zhang Z and Du W. 
+```{r projected_h_index, include=TRUE, eval=FALSE}
+library(ggplot2)
+year <- format(Sys.time(), '%Y') %>% as.integer()
 
-Zahnow, R., Corcoran, J., Kimpton, A., & Wickes, R. (2021). “Neighbourhood places, collective efficacy and crime: A longitudinal perspective”. Urban Studies. https://doi.org/10.1177/00420980211008820 (SJR = Q1; Impact Factor = 1.92).
-Sigler, T., Boyd, H. & Kimpton, A., (2021). “Socio-Spatial Factors Explaining Daylight Saving Preferences in Australia”. The Professional Geographer 1-10 (SJR = Q1; Impact Factor = 1.623).
-Kimpton, A., Pojani, D., Sipe, N., & Corcoran, J. (2021) “Parking policy and bay-sharing for unmooring automobility from cities”. In T. Sigler & J. Corcoran (eds.) The Modern Guide to the Urban Sharing Economy 87-102. Edward Elgar Publishing.
-Sigler, T., Mahmuda, S., Kimpton, A., Loginova, J., Wohland-Jakhar, P., Charles-Edwards, E., Corcoran, J. (2021) “The Socio-Spatial Determinants of COVID-19 Diffusion: The Impact of Globalisation, Settlement Characteristics and Population”. Globalization and Health 17 (1), 1-140. (SJR = Q1; Impact Factor = 2.65; Cites = 12).
-Kimpton, A., (2020) “Explaining the railheading travel behaviour with home location, park ‘n’ ride characteristics, and the built environment to strengthen multimodalism”. Applied Spatial Analysis and Policy, 1-22. (SJR = Q2; Impact Factor = 1.367).
-Kimpton, A., Pojani, D., Ryan, C., Ouyang, L., Sipe, N., & Corcoran, J. (2020) “Contemporary parking policy, practice, and outcomes in three large Australian cities”. Progress in Planning, 100506. (SJR = Q1; Impact Factor = 3.813; Cites = 5).
-Kimpton, A. (2020) “Visualising Australia’s older population using grid maps”. Australian Population Studies, 4 (1), 70-72.
-Kimpton, A., Pojani, D., Sipe, N., & Corcoran, J. (2020) “Parking behavior: park ‘n’ ride to encourage multimodalism in Brisbane”. Land Use Policy, 91: 104304 (SJR = Q1; Impact Factor = 3.194; Cites = 16).
-Pojani, D., Kimpton, A., Sipe, N., Corcoran, J., Mateo-Babiano, I., & Stead D., (2019) “Setting the agenda for parking research in other cities”. In Parking: An International Perspective 245–260. Elsevier Inc: Amsterdam.
-Kimpton, A. (2019) “Upset diagrams for examining whether parking maximums influence modal choice and car holdings”. Environment and Planning A: Economy and Space 52 (6), 1023-1026. (SJR = Q1; Impact Factor = 3.033).
-Corcoran, J., Zahnow, R., Kimpton, A., Wickes, R., & Brunsdon, C., (2019) “The temporality of place: constructing a temporal typology of crime in commercial precincts”. Environment and Planning B: Urban Analytics and City Science 2399808319846904. (SJR = Q1; Impact Factor = 2.046; Cites = 6).
-Pojani, D., Kimpton, A., & Rocco, R. (2019) “Planning students’ conceptions of research”. Journal of Planning Education and Research, 1-14. (SJR = Q1; Impact Factor = 1.260; Cites = 3).
-Kimpton A. (2017) “A spatial analytic approach for classifying greenspace and comparing greenspace social equity”. Applied Geography 82: 129-142. (SJR = Q1; Impact Factor = 3.117; Cites = 52).
-Kimpton, A., Corcoran, J., & Wickes R. (2016) “Greenspace and crime: an analysis of greenspace types, neighboring composition and the temporal dimensions of crime”. Journal of Research in Crime and Delinquency 54(3): 303-337. (SJR = Q1; Impact Factor = 2.899; Cites = 46). 
-Kimpton, A., Corcoran, J., & Wickes, R. (2015) “Public greenspaces and crime: an analysis of crime timing and public greenspace amenities”. State of Australian Cities Conference Proceedings.
-Kimpton, A., Wickes, R. & Corcoran, J. (2014) “Public greenspace and urban communities: do greener suburbs lead to greater residential place attachment?” Journal of Urban Policy and Research 32(4): 477-497. (SJR = Q1; Impact Factor = 1.286; Cites = 29).
+predicted_h_index %>%
+  transmute(year = as.integer(years_ahead) + year,
+              h_index) %>% 
+  ggplot(mapping = aes(x = year, y = h_index)) +
+  geom_point() +
+  ylab("h-index") +
+  xlab("year")
+```
+
+```{r plots, include=TRUE, eval=FALSE}
+library(ggplot2)
+predicted_h_index %>%
+  ggplot(mapping = aes(x = years_ahead, y = h_index)) +
+  geom_point()
+```
+
+
+`r x <- "0EnyYjriUFMC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (book chapter)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "UebtZRa9Y70C"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "hqOjcs7Dif8C"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = Q1; impact factor = 1.5)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "Se3iqnhoufwC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "roLk4NBRz8UC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "zYLM7Y9cAGgC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = Q1; impact factor = 4.9)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "ufrVoPGSRksC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "_FxGoFyzp5QC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "W7OEmFMy1HYC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "Y0pCki6q_DkC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (book chapter)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "qjMakFHDy7sC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "eQOLeE2rZwMC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = Q1; impact factor = 0.89)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "9yKSN-GCB0IC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "Tyk-4Ss8FVUC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "IjCSPb-OGe4C"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
 
 Further Position-Relevant Training {data-icon=graduation-cap data-concise=true}
 --------------------------------------------------------------------------------
 
-2020	Asymmetric Innovations Industry Engagement Program
-The University of Queensland’s Faculty of Science
-2019	Writing for The Conversation	
-The University of Queensland
-2019	Science Communication and Mainstream Media
-The University of Queensland’s Faculty of Science
-2019	Alternate Futures Industry Engagement Program
-The University of Queensland’s Faculty of Science
-2017	Software Carpentry with Python
-The University of Queensland’s Faculty of Engineering, Architecture and Information Technology
-2016	Complete Python Bootcamp
-Udemy	
-2016	Stata Programming Workshop
-The University of Queensland’s Institute of Social Science Research
-2015	Multilevel Modelling Course
-The University of Bristol’s Centre for Multilevel Modelling (hosted by the Queensland University of Technology)  	
-2014	Open Knowledge Brisbane Data Visualisation Workshop
-The Queensland State Library’s The Edge
-2013	Envirohack Workshop
-The Queensland State Library’s The Edge
-2013	Tutors@UQ Program
-The University of Queensland’s Faculty of Behavioural and Social Science
+### Asymmetric Innovations Industry Engagement Program
 
-The Institute of Australian Geographers
-The International Geographical Union
+N/A
 
-Professional Membership  {data-icon=phone}
+N/A
+
+2020
+
+### Writing for The Conversation
+
+N/A
+
+N/A
+
+2019
+
+### Science Communication and Mainstream Media
+
+N/A
+
+N/A
+
+2019
+
+### Alternate Futures Industry Engagement Program
+
+N/A
+
+N/A
+
+2019
+
+### Software Carpentry with Python
+
+N/A
+
+N/A
+
+2017
+
+### Complete Python Bootcamp
+
+N/A
+
+N/A
+
+2016
+
+### Stata Programming Workshop
+
+N/A
+
+N/A
+
+2016
+
+### Multilevel Modelling Course
+
+N/A
+
+N/A
+
+2015
+
+### Open Knowledge Brisbane Data Visualisation Workshop
+
+N/A
+
+N/A
+
+2014
+
+### Envirohack Workshop
+
+N/A
+
+N/A
+
+2013
+
+### Tutors\@UQ Program
+
+N/A
+
+N/A
+
+2013
+
+Professional Membership  {data-icon=suitcase}
 --------------------------------------------------------------------------------
+
+### The Institute of Australian Geographers
+
+N/A
+
+N/A
+
+N/A
+
+### The International Geographical Union
+
+N/A
+
+N/A
+
+N/A
 
 Referees  {data-icon=phone}
 --------------------------------------------------------------------------------
