@@ -1,5 +1,5 @@
 ---
-title: "Anthony Kimpton's resume"
+title: Academic Curriculum Vitaea
 author: Anthony Kimpton
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
@@ -34,6 +34,9 @@ browseURL("https://fontawesome.com/")
 # testing resume
 browseURL("https://resumeworded.com/results-v2")
 browseURL("https://www.jobscan.co/results/16564079")
+
+# linked in tools
+browseURL("https://www.linkedin.com/pulse/rlinkedin-more-long-life-linkedin-api-network-analysis-jerad-acosta")
 ```
 
 ```{r publications, include=FALSE}
@@ -45,10 +48,12 @@ publications <- get_publications(id) %>%
   transmute(title = str_to_sentence(title),
          title = str_replace(title, "7. ", ""),
          title = str_replace(title, "brisbane", "Brisbane"),
-         title = str_replace(title, "Australian", "australian"),
+         title = str_replace(title, "australia", "Australia"),
          author = str_replace(author, "A Kimpton", "**A Kimpton**"),
          author = sub(",([^,]*)$", " &\\1", author),
          journal = str_to_title(journal),
+         journal = str_replace(journal, "And", "and"),
+         journal = str_replace(journal, "Parking", "Parking: an International Perspective"),
          cites,
          year,
          pubid
@@ -73,7 +78,8 @@ peer_reviewed <- publications %>%
   mutate(journal = str_replace(journal, " Media Group", ""),
          journal = str_replace(journal, " Media Trust", ""),
          journal = str_replace(journal, "^", "*"),
-         journal = str_replace(journal, "$", "*")) %>% 
+         journal = str_replace(journal, "$", "*"),
+         year = ifelse(pubid == "_FxGoFyzp5QC", 2021, year)) %>% 
   arrange(desc(year), author, title)
 
 the_conversation <- peer_reviewed %>% 
@@ -117,11 +123,11 @@ Contact Info {#contact}
 Skills {#skills}
 --------------------------------------------------------------------------------
 
-- geospatial, temporal, textual, and machine learning statistical modelling
+- Geospatial, temporal, textual, and machine learning statistical modelling
 
-- advanced capabilities with R, Stata, ArcGIS, Python, SQL, and to a lesser extent, Bash, Docker, HTML, and CSS
+- Advanced capabilities with R, Stata, ArcGIS, Python, SQL, and to a lesser extent, Bash, Docker, HTML, and CSS
 
-- steamlined Github and rMarkdown workflow for generating and updating manuscripts, reports, presentations, APIs, interactive web pages and applications, and also academic resumes!
+- Streamlined Github and rMarkdown workflow for generating and updating manuscripts, reports, presentations, APIs, interactive web pages and applications, and also academic resumes!
 
 Main
 ================================================================================
@@ -129,10 +135,9 @@ Main
 Anthony Kimpton {#title}
 --------------------------------------------------------------------------------
 
-Career Summary {data-icon=map-signs data-concise=true}
---------------------------------------------------------------------------------
+### Academic Curriculum Vitae
 
-Anthony is a sociologist with advanced geospatial statistics training that is excited by the promise of smart cities and a socially sustainable global society starting from the neighborhood-scale. Their overarching career objective is to clear the open and big data expertise barrier so that urban researchers and the public can co-design livable cities where socially diverse communities can thrive.
+Anthony is a sociologist with advanced geospatial statistics training that is excited by the promise of smart cities and a socially sustainable global society starting from the neighbourhood-scale. Their overarching career objective is to clear the open and big data expertise barrier so that urban researchers and the public can co-design liveable cities where socially diverse communities can thrive.
 
 
 Education {data-icon=graduation-cap data-concise=true}
@@ -145,11 +150,9 @@ Brisbane, Australia
 
 2018
 
-**Thesis**: The Sociability of Urban Greenspace: An Exploration of How Public Parks and Private Backyards Influence the Social Sustainability of Urban Communities
+**Thesis**: "The Sociability of Urban Greenspace: An Exploration of How Public Parks and Private Backyards Influence the Social Sustainability of Urban Communities" entailing the development of the first quantitative social sustainability measure, and employing social survey, crime incidence, remote imagery, administrative, and population census data to examine how public greenspace and backyards influence the neighbourhood social sustainability
 
-**Focus**: developing the first quantitative social sustainability measure, and employing social survey, crime incidence, remote imagery, administrative, and population census data to examine how public greenspace and backyards influence the neighborhood social sustainability
-
-**Geography & Sociology**: logistic, negative binomial, and linear regression, cluster analysis using Stata 
+**Geography & Sociology**: Logistic, negative binomial, and linear regression, cluster analysis using Stata 
 
 ### Bachelor of Arts Honours (1st class)
 
@@ -159,9 +162,9 @@ Brisbane, Australia
 
 2012
 
-**Thesis**: Seeing Green: Can the Objective Physical Environment Predict Place Attachment? employing social survey, crime incident, census, and administrative data to examine how public greenspace influences place attachment   
+**Thesis**: "Seeing Green: Can the Objective Physical Environment Predict Place Attachment?" employing social survey, crime incidence, census, and administrative data to examine how public greenspace influences place attachment   
 
-**Sociology**: multi-level statistical modelling; research design and scoping
+**Sociology**: Multi-level statistical modelling; research design and scoping
 
 ### Bachelor of Arts
 
@@ -171,14 +174,12 @@ Brisbane, Australia
 
 2011
 
-**Sociology & Archaeology**: statistical modelling using Stata and Excel; qualitative interviewing methods; geo-spatial analysis or GIS  using ArcGIS; field work; laboratory methods and procedures
+**Sociology & Archaeology**: Statistical modelling using Stata and Excel; qualitative interviewing methods; geo-spatial analysis or GIS  using ArcGIS; field work; laboratory methods and procedures
 
 Key Publications {data-icon=file}
 --------------------------------------------------------------------------------
 
-### Total cites = `r total_cites`, h-index = `r round(h_index,0)`, and projected 10-year h-index projection = `r filter(predicted_h_index, years_ahead == 10) %>% pull(h_index) %>% round(., 1)` <sup>1</sup>
-
-<sup>1</sup> Future impact: Predicting scientific success (Acuna et al. 2012 in *Nature*) 
+### Total cites = `r total_cites` and h-index = `r round(h_index,0)`
 
 N/A
 
@@ -320,7 +321,7 @@ Melbourne, Australia
 
 2021
 
-**Aim**: lead the development of the Green Australian Vehicle Ownership (GreenAVO) service that harvests and links Australian state and territory vehicle registration APIs with vehicle characteristics from the Australian Green Vehicle Guide API to reveal spatio-temporal trends in vehicle ownership at the postcode-level for tracking, predicting, and accelerating the national transition towards hybrid and electric vehicles through strategic planning and infrastructure.
+**Aim**: Lead the development of the Green Australian Vehicle Ownership (GreenAVO) service that harvests and links Australian state and territory vehicle registration APIs with vehicle characteristics from the Australian Green Vehicle Guide API to reveal spatiotemporal trends in vehicle ownership at the postcode-level for tracking, predicting, and accelerating the national transition towards hybrid and electric vehicles through strategic planning and infrastructure.
 
 ### Dean's Award for Outstanding HDR Thesis
 
@@ -330,7 +331,7 @@ N/A
 
 2020
 
-**Criteria**: both thesis examiners: Professors Alexis Comber and Kate Bowers describing the 2018 thesis is an outstanding theoretical, empirical, and applied research contributions requiring no changes.
+**Criteria**: Both thesis examiners Professors Alexis Comber and Kate Bowers commending the 2018 thesis as an outstanding theoretical, empirical, and applied research contribution requiring no changes.
 
 ### Early Career Researcher Travel Grant
 
@@ -340,7 +341,7 @@ N/A
 
 2020
 
-**Aim**: competitive grant funding travel to the 2020 International Geographical Union conference in Turkey (cancelled due to COVID)  
+**Aim**: Competitive grant funding travel to the 2020 International Geographical Union conference in Turkey (cancelled due to COVID)  
 
 ### Early Career Researcher Grant
 
@@ -350,7 +351,7 @@ N/A
 
 2019
 
-**Aim**: competitive grant for travel and registration to present the 2019 Australian Sociological Association conference
+**Aim**: Competitive grant for travel and registration to present at the 2019 Australian Sociological Association conference
 
 ### Australian Postgraduate Award
 
@@ -360,7 +361,7 @@ N/A
 
 2019
 
-**Aim**: competitive grant providing $24,653 per annum throughout PhD candidature
+**Aim**: Competitive grant providing $24,653 per annum throughout PhD candidature
 
 Research Experience {data-icon=laptop}
 --------------------------------------------------------------------------------
@@ -369,11 +370,11 @@ Research Experience {data-icon=laptop}
 
 The Australian Urban Research Infrastructure Network and the University of Queensland’s School of Civil Engineering 
 
-N/A
+Brisbane, Australia
 
 2021
 
-**Role**: develop microservices (AGILE software development) for the Australian Transport Research Cloud e.g, interactive graphics and dashboards, and application programming interfaces (API) for the public and collaborating universities using R (programming language), Docker for containerisation, and Bash for AURIN Virtual Machine opperations   
+**Role**: Develop microservices (AGILE software development) for the Australian Transport Research Cloud e.g, interactive graphics and dashboards, and application programming interfaces (API) for the public and collaborating universities using R (programming language), Docker for containerisation, and Bash for AURIN Virtual Machine operations   
 
 ### Postdoctoral Research Fellow
 
@@ -383,9 +384,9 @@ Brisbane, Australia
 
 2018 - 2020
 
-**Role**: review Australian land use and transport policy, examine land use and census data to determine how parking supply aligns with policy influences urban mobility using the R (programming language) for all GIS, statistical modeling, and reporting including the [project page](https://parks-uq.github.io/)  
+**Role**: Review Australian land use and transport policy, examine land use and census data to determine how parking supply aligns with policy and influences urban mobility using the R (programming language) for all GIS, statistical modelling, and reporting including the following project page: [https://parks-uq.github.io/](https://parks-uq.github.io/)  
 
-### Research Assitant
+### Research Assistant
 
 The University of Queensland’s School of Geography, Planning, and Environmental Management 
 
@@ -393,7 +394,7 @@ Brisbane, Australia
 
 2013-2018
 
-**Role**: review community sociology and environmental criminology research literature focusing on how natural disasters impact community sociability, and examine social survey, crime incident, census, flood, and administrative data using ArcGIS for spatial analyses and cartography, and Stata for statistical modelling and data visualization
+**Role**: Review community sociology and environmental criminology research literature focusing on how natural disasters impact community sociability, and examine social survey, crime incident, census, flood, and administrative data using ArcGIS for spatial analyses and cartography, and Stata for statistical modelling and data visualization
 
 Teaching Experience {data-icon=chalkboard-teacher}
 --------------------------------------------------------------------------------
@@ -416,12 +417,12 @@ Brisbane, Australia
 
 2016 - present
 
-**Teaching Evaluations**: ranging 4.1 to 4.3 on a 5-point scale with 4.3 most recently awarded for both online and face-to-face delivery 
+**Teaching Evaluations**: Ranging 4.2 to 4.5 on a 5-point scale with 4.3 most recently awarded for both online and face-to-face delivery 
 
 ::: concise
-- **GEOG1000: Human Settlements**: develop and present lectures on the history of human settlements and future of cities to over 200 first-year urban planning, geography, and environmental management students per semester
-- **GEOG2202/GEOG7202: Global Population Issues**: develop and deliver lectures on global demographic challenges to over 60 second-year and postgraduate urban planning and geography students per semester
-- **GEOG3003: The Global Metropolis**: invited for first lecturing assignment to revamp and re-badge the “GEOG3030: the Asian Metropolis” capstone course by developing and delivering six new lectures on topics including smart cities, transport, and sustainability to over 40 final-year urban planning and geography students per semester
+- **GEOG1000: Human Settlements**: Develop and present lectures on the history of human settlements and future of cities to over 200 first-year urban planning, geography, and environmental management students per semester
+- **GEOG2202/GEOG7202: Global Population Issues**: Develop and deliver lectures on global demographic challenges to over 60 second-year and postgraduate urban planning and geography students per semester
+- **GEOG3003: The Global Metropolis**: Invited for first lecturing assignment to revamp and re-badge the “GEOG3030: the Asian Metropolis” capstone course by developing and delivering six new lectures on topics including smart cities, transport, and sustainability to over 40 final-year urban planning and geography students per semester
 :::
 
 ### School Representative
@@ -432,7 +433,7 @@ Brisbane, Australia
 
 2016 - 2017
 
-**Role**: invited and employed to develop and deliver presentations at high schools, career open days, and high school teaching conferences to promote geography, planning, environmental management, and geology
+**Role**: Invited and employed to develop and deliver presentations at high schools, career open days, and high school teaching conferences to promote geography, planning, environmental management, and geology
 
 ### Lead Tutor/Demonstrator 
 
@@ -442,19 +443,19 @@ Brisbane, Australia
 
 2013 - 2018
 
-**Teaching Evaluations**: ending with 4.7 on a 5-point scale for face-to-face delivery and consistently high evaluations created opportunities to lecture    
+**Teaching Evaluations**: Ending with 4.7 on a 5-point scale for face-to-face delivery and consistently high evaluations created opportunities to lecture    
 
 ::: concise
-- **GEOG1000: Human Settlements**: develop practicals, workbooks, and assessments for over 200 first-year geography, environmental management, and urban planning students per semester, and manage and train up to 4 demonstrators running a portion of these practicals per semester
-- **SOCY2339/7339: Introduction to Quantitative Methods**: develop and deliver introductory statistical modelling workshops using Stata for over 60 second-year and 20 research by higher degree students per semester
-- **SOCY2340: Sociology of the City**: tutor across urban topics including public space, social equity, community sociability, and environmental criminology to over 60 second-year sociology, criminology, urban planning, and geography students per semester
-- **CRIM1000: Introduction to Criminology** develop and deliver introductory criminology tutorials to over 60 first-year criminology students per semester
+- **GEOG1000: Human Settlements**: Develop practicals, workbooks, and assessments for over 200 first-year geography, environmental management, and urban planning students per semester, and manage and train up to 4 demonstrators running a portion of these practicals per semester
+- **SOCY2339/7339: Introduction to Quantitative Methods**: Develop and deliver introductory statistical modelling workshops using Stata for over 60 second-year and 20 research by higher degree students per semester
+- **SOCY2340: Sociology of the City**: Tutor across urban topics including public space, social equity, community sociability, and environmental criminology to over 60 second-year sociology, criminology, urban planning, and geography students per semester
+- **CRIM1000: Introduction to Criminology** Develop and deliver introductory criminology tutorials to over 60 first-year criminology students per semester
 :::
 
 Professional Experience {data-icon=suitcase}
 --------------------------------------------------------------------------------
 
-### The Early- and Mid-Career Researcher Representative
+### The Early and Mid Career Researcher Representative
 
 The University of Queensland’s Faculty of Science Research Committee
 
@@ -462,7 +463,7 @@ Brisbane, Australia
 
 2019 - 2020
 
-**Role**: invited to represent EMCRs at monthly faculty research committee meetings chaired by the faculty Associate Dean of Research
+**Role**: Invited to represent EMCRs at monthly faculty research committee meetings chaired by the faculty Associate Dean of Research
 
 ### The Urban Planning and Geography Representative
 
@@ -472,7 +473,7 @@ Brisbane, Australia
 
 2019 - 2020
 
-**Role**: invited to represent urban planning and geography ECRs at monthly school meetings, and develop grant guidelines and applications, evaluate these applications
+**Role**: Invited to represent urban planning and geography ECRs at monthly school meetings, develop grant guidelines and applications, and evaluate these applications
 
 ### Milestone and Thesis Examiner
 
@@ -482,7 +483,7 @@ N/A
 
 2018 - present
 
-**Role**: examine RhD milestones and theses on topics including environmental criminology, urban sociology, demography, land use and transport planning, and urban ecology 
+**Role**: Examine RhD milestones and theses on topics including environmental criminology, urban sociology, demography, land use and transport planning, and urban ecology 
 
 ### Academic Journal Reviewer
 
@@ -492,7 +493,7 @@ N/A
 
 2015 - present
 
-**Role**: peer-review for journals including: Applied Geography; Applied Spatial Analysis and Policy; Australian Planner; Behavioural Research Methods; City, Culture and Society; Ecosystem Services; Environment and Behaviour; Environment and Planning B: Urban Analytics and City Science; Environmental Planning and Management; Geoforum; Housing and the Built Environment; Land Use Policy; Landscape and Urban Planning; Landscape Research; Population Research; Research in Crime and Delinquency; Security Journal; Social Science Research; Spatial Science; Springer Nature: Social Science; Sustainability; Sustainable Cities and Society; Transport Reviews; Travel Behaviour and Society; Urban Studies; and Urbanism: International Research on Placemaking and Urban Sustainability
+**Role**: Peer-review for journals including: Applied Geography; Applied Spatial Analysis and Policy; Australian Planner; Behavioural Research Methods; City, Culture and Society; Ecosystem Services; Environment and Behaviour; Environment and Planning B: Urban Analytics and City Science; Environmental Planning and Management; Geoforum; Housing and the Built Environment; Land Use Policy; Landscape and Urban Planning; Landscape Research; Population Research; Research in Crime and Delinquency; Security Journal; Social Science Research; Spatial Science; Springer Nature: Social Science; Sustainability; Sustainable Cities and Society; Transport Reviews; Travel Behaviour and Society; Urban Studies; and Urbanism: International Research on Placemaking and Urban Sustainability
 
 Professional Membership  {data-icon=id-card}
 --------------------------------------------------------------------------------
@@ -516,7 +517,7 @@ N/A
 Referees  {data-icon=phone}
 --------------------------------------------------------------------------------
 
-### Professor Rebecca Wickes,
+### Professor Rebecca Wickes
 
 Director for the Monash Migration and Inclusion Centre
 
@@ -538,7 +539,7 @@ N/A
 
 N/A
 
-**Mail**: Room 512, Level 5, Chamberlain Building (#35), University of Queensland, St Lucia, Queensland, Australian, 4067
+**Mail**: Room 512, Level 5, Chamberlain Building (#35), University of Queensland, St Lucia, Queensland, Australia, 4067
 
 **Phone**: (+61 7) 336 56517
 
@@ -552,7 +553,7 @@ N/A
 
 N/A
 
-**Mail**: Chamberlain Building (#35), University of Queensland, St Lucia, Queensland, Australian, 4067
+**Mail**: Chamberlain Building (#35), University of Queensland, St Lucia, Queensland, Australia, 4067
 
 **Phone**: (+61) 439 746 123
 
@@ -901,7 +902,7 @@ Washington D.C, United States
 
 **A. Kimpton**, J. Corcoran, & R. Wickes
 
-### Public Greenspaces and Crime: an Analysis of Crime Timing and Public Greenspace Amenities
+### Public Greenspaces and Crime: An Analysis of Crime Timing and Public Greenspace Amenities
 
 State of Australian Cities Conference
 
@@ -911,9 +912,9 @@ Gold Coast, Australia
 
 **A. Kimpton**, J. Corcoran, & R. Wickes
 
-### Perspectives on Resilience. A Case Study of the 2011 Brisbane Floods.
+### Perspectives on Resilience: A Case Study of the 2011 Brisbane Floods
 
-Disaster & Emergency Management Conference
+Disaster and Emergency Management Conference
 
 Gold Coast, Queensland
 
