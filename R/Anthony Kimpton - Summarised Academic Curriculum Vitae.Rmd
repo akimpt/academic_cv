@@ -135,7 +135,7 @@ Main
 Anthony Kimpton {#title}
 --------------------------------------------------------------------------------
 
-### Summarised Academic Curriculum Vitae
+<h5>Summarised Academic Curriculum Vitae</h5>
 
 Anthony is a sociologist with advanced geospatial statistics training that is excited by the promise of smart cities and a socially sustainable global society starting from the neighbourhood-scale. Their overarching career objective is clearing the open and big data expertise barrier so that urban researchers and the public can co-design liveable cities where socially diverse communities can thrive.
 
@@ -560,7 +560,8 @@ N/A
 
 **Email**: [n.sipe@uq.edu.au](n.sipe@uq.edu.au)
 
+<h5>Summary End</h5>
 
-Please see [https://github.com/akimpt/academic_cv/blob/main/R/Anthony%20Kimpton%20-%20Complete%20Academic%20Curriculum%20Vitae.pdf](https://github.com/akimpt/academic_cv/blob/main/R/Anthony%20Kimpton%20-%20Complete%20Academic%20Curriculum%20Vitae.pdf) for a complete version of this *Summarised Academic Curriculum Vitae* that lists my entire research education, publications, and conference presentations.
+Please see my [Complete Academic Curriculum Vitae](https://github.com/akimpt/academic_cv/blob/main/R/Anthony%20Kimpton%20-%20Complete%20Academic%20Curriculum%20Vitae.pdf) for a complete listing of my research education, publications, and conference presentations.
 
 
