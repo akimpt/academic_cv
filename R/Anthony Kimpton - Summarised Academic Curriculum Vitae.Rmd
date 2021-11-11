@@ -560,5 +560,7 @@ N/A
 
 **Email**: [n.sipe@uq.edu.au](n.sipe@uq.edu.au)
 
-### please see 
+
+Please see [https://github.com/akimpt/academic_cv/blob/main/R/Anthony%20Kimpton%20-%20Complete%20Academic%20Curriculum%20Vitae.pdf](https://github.com/akimpt/academic_cv/blob/main/R/Anthony%20Kimpton%20-%20Complete%20Academic%20Curriculum%20Vitae.pdf) for a complete version of this *Summarised Academic Curriculum Vitae* that lists my entire research education, publications, and conference presentations.
+
 
