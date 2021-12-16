@@ -1,5 +1,5 @@
 ---
-title: Complete Academic Curriculum Vitae
+title: Academic Curriculum Vitae
 author: Anthony Kimpton
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
@@ -52,35 +52,61 @@ publications <- get_publications(id) %>%
          author = str_replace(author, "A Kimpton", "**A Kimpton**"),
          author = sub(",([^,]*)$", " &\\1", author),
          journal = str_to_title(journal),
-         journal = str_replace(journal, "And", "and"),
+         journal = str_replace_all(journal, "And", "and"),
+         journal = str_replace_all(journal, "In", "in"),
+         journal = str_replace_all(journal, "Of", "of"),
+         journal = str_replace_all(journal, "To", "to"),
+         journal = str_replace_all(journal, "The", "the"),
+         journal = str_replace(journal, "^the", "The"),
          journal = str_replace(journal, "Parking", "Parking: an International Perspective"),
+         journal = str_replace(journal, " Media Group", ""),
+         journal = str_replace(journal, " Media Trust", ""),
          cites,
          year,
          pubid
          ) %>% 
   drop_na(journal)
 
-impact <- get_impactfactor(journals=publications$journal, max.distance = 0.1) %>% 
+impact <- get_impactfactor(journals=publications$journal, max.distance = 0.2) %>% 
   clean_names() %>% 
   transmute(journal = str_to_title(journal),
-            impact_factor = round(impact_factor, 1)) %>% 
+         journal = str_replace_all(journal, "And", "and"),
+         journal = str_replace_all(journal, "In", "in"),
+         journal = str_replace_all(journal, "Of", "of"),
+         journal = str_replace_all(journal, "To", "to"),
+         journal = str_replace_all(journal, "The", "the"),
+         journal = str_replace(journal, "^the", "The"),
+         journal = str_replace(journal, "Parking", "Parking: an International Perspective"),
+         journal = str_replace(journal, " Media Group", ""),
+         journal = str_replace(journal, " Media Trust", ""),
+         impact_factor = round(impact_factor, 1)) %>% 
   drop_na()
 
 rank <- get_journalrank(journals=publications$journal) %>% 
   clean_names() %>% 
   transmute(journal = str_to_title(journal),
-            sjr_best_quartile = as.character(sjr_best_quartile)) %>%
+         journal = str_replace_all(journal, "And", "and"),
+         journal = str_replace_all(journal, "In", "in"),
+         journal = str_replace_all(journal, "Of", "of"),
+         journal = str_replace_all(journal, "To", "to"),
+         journal = str_replace_all(journal, "The", "the"),
+         journal = str_replace(journal, "^the", "The"),
+         journal = str_replace(journal, "Parking", "Parking: an International Perspective"),
+         journal = str_replace(journal, " Media Group", ""),
+         journal = str_replace(journal, " Media Trust", ""),
+            sjr_best_quartile = as.character(sjr_best_quartile),
+            categories) %>%
   drop_na()
 
 peer_reviewed <- publications %>% 
   left_join(impact, by = "journal") %>% 
   left_join(rank, by = "journal") %>% 
-  mutate(journal = str_replace(journal, " Media Group", ""),
-         journal = str_replace(journal, " Media Trust", ""),
-         journal = str_replace(journal, "^", "*"),
+  mutate(journal = str_replace(journal, "^", "*"),
          journal = str_replace(journal, "$", "*"),
+         sjr_best_quartile = ifelse(pubid == "ufrVoPGSRksC" | pubid == "roLk4NBRz8UC", "Q2", "Q1"),
          year = ifelse(pubid == "_FxGoFyzp5QC", 2021, year)) %>% 
-  arrange(desc(year), author, title)
+  arrange(desc(year), author, title) %>% 
+  mutate(sjr_best_quartile)
 
 the_conversation <- peer_reviewed %>% 
   filter(journal == "*The Conversation*")
@@ -135,7 +161,7 @@ Main
 Anthony Kimpton {#title}
 --------------------------------------------------------------------------------
 
-<h5>Complete Academic Curriculum Vitae</h5>
+<h5>Academic Curriculum Vitae</h5>
 
 Anthony is an urban planner with advanced geospatial statistics training. They are excited by the promise of smart cities and a socially sustainable global society starting from the neighbourhood-scale. Their overarching career objective is clearing the open and big data expertise barrier so that urban researchers and the public can co-design liveable cities where socially diverse communities can thrive.
 
@@ -175,10 +201,10 @@ Brisbane, Australia
 
 **Sociology & Archaeology**: Statistical modelling using Stata and Excel; qualitative interviewing methods; geo-spatial analysis or GIS  using ArcGIS; field work; laboratory methods and procedures
 
-Key Publications {data-icon=file}
+Publications   {data-icon=file}
 --------------------------------------------------------------------------------
 
-### Overall 
+### Overall (Google Scholar `r format(Sys.time(), '%d/%m/%y')`)
 
 Total cites = `r total_cites` and h-index = `r round(h_index,0)`
 
@@ -186,11 +212,35 @@ N/A
 
 Current
 
+`r x <- "0EnyYjriUFMC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (book chapter)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
 `r x <- "UebtZRa9Y70C"`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "hqOjcs7Dif8C"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = Q1; impact factor = 1.5)
 
 N/A
 
@@ -202,7 +252,43 @@ N/A
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "roLk4NBRz8UC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "zYLM7Y9cAGgC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = Q1; impact factor = 4.9)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "ufrVoPGSRksC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")`
 
 N/A
 
@@ -214,7 +300,7 @@ N/A
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
 
 N/A
 
@@ -226,7 +312,43 @@ N/A
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "Y0pCki6q_DkC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (book chapter)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "qjMakFHDy7sC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "eQOLeE2rZwMC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = Q1; impact factor = 0.89)
 
 N/A
 
@@ -238,7 +360,7 @@ N/A
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
 
 N/A
 
@@ -250,7 +372,7 @@ N/A
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
 
 N/A
 
@@ -258,8 +380,30 @@ N/A
 
 `r pub_stat("author")`
 
-Key Conference Presentations {data-icon=microphone}
+`r x <- "IjCSPb-OGe4C"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+Conference Presentations {data-icon=microphone}
 --------------------------------------------------------------------------------
+
+### Capturing Change to Daily Mobility (and Immobility)
+
+eResearch Australasia Conference
+
+Brisbane, Australia
+
+2019
+
+**A. KImpton**
 
 ### Contemporary Parking Policy and Practice in Large Australian Cities
 
@@ -310,6 +454,26 @@ Washington D.C, United States
 2015
 
 **A. Kimpton**, J. Corcoran, & R. Wickes
+
+### Public Greenspaces and Crime: An Analysis of Crime Timing and Public Greenspace Amenities
+
+State of Australian Cities Conference
+
+Gold Coast, Australia
+
+2015
+
+**A. Kimpton**, J. Corcoran, & R. Wickes
+
+### Perspectives on Resilience: A Case Study of the 2011 Brisbane Floods
+
+Disaster and Emergency Management Conference
+
+Gold Coast, Queensland
+
+2014
+
+**A. Kimpton** & J. Corcoran
 
 Grants and Awards {data-icon=trophy}
 --------------------------------------------------------------------------------
@@ -515,53 +679,6 @@ N/A
 
 N/A
 
-Referees  {data-icon=phone}
---------------------------------------------------------------------------------
-
-### Professor Rebecca Wickes
-
-Director for the Monash Migration and Inclusion Centre
-
-N/A
-
-N/A
-
-**Mail**: School of Social Sciences, Monash University, Clayton, Victoria, Australia,  3800
-
-**Phone**: (+61) 413 623 929
-
-**Email**: [rebecca.wickes@monash.edu.au](rebecca.wickes@monash.edu.au)
-
-### Professor Jonathan Corcoran
-
-Director of the Queensland Centre for Population Research
-
-N/A
-
-N/A
-
-**Mail**: Room 512, Level 5, Chamberlain Building (#35), University of Queensland, St Lucia, Queensland, Australia, 4067
-
-**Phone**: (+61) 733 656 517
-
-**Email**: [jj.corcoran@uq.edu.au](jj.corcoran@uq.edu.au)
-
-### Emeritus Professor Neil Sipe
-
-Former School Head of Urban and Regional Planning
-
-N/A
-
-N/A
-
-**Mail**: Chamberlain Building (#35), University of Queensland, St Lucia, Queensland, Australia, 4067
-
-**Phone**: (+61) 427 958 566
-
-**Email**: [n.sipe@uq.edu.au](n.sipe@uq.edu.au)
-
-<h4>Appendix</h4>
-
 Other Skills and Qualifications {data-icon=graduation-cap data-concise=true}
 --------------------------------------------------------------------------------
 
@@ -653,268 +770,47 @@ N/A
 
 2013
 
-Full Publications   {data-icon=file}
+Referees  {data-icon=phone}
 --------------------------------------------------------------------------------
 
-`r x <- "0EnyYjriUFMC"`
+### Emeritus Professor Neil Sipe
 
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (book chapter)
+Former School Head of Urban and Regional Planning
 
 N/A
 
-`r pub_stat("year")`
+N/A
 
-`r pub_stat("author")`
+**Mail**: Chamberlain Building (#35), University of Queensland, St Lucia, Queensland, Australia, 4067
 
-`r x <- "UebtZRa9Y70C"`
+**Phone**: (+61) 427 958 566
 
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+**Email**: [n.sipe@uq.edu.au](n.sipe@uq.edu.au)
 
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
+### Professor Rebecca Wickes
+
+Director for the Monash Migration and Inclusion Centre
 
 N/A
 
-`r pub_stat("year")`
+N/A
 
-`r pub_stat("author")`
+**Mail**: School of Social Sciences, Monash University, Clayton, Victoria, Australia,  3800
 
-`r x <- "hqOjcs7Dif8C"`
+**Phone**: (+61) 413 623 929
 
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+**Email**: [rebecca.wickes@monash.edu.au](rebecca.wickes@monash.edu.au)
 
-`r pub_stat("journal")` (sjr = Q1; impact factor = 1.5)
+### Professor Jonathan Corcoran
+
+Director of the Queensland Centre for Population Research
 
 N/A
 
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-`r x <- "Se3iqnhoufwC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
-
 N/A
 
-`r pub_stat("year")`
+**Mail**: Room 512, Level 5, Chamberlain Building (#35), University of Queensland, St Lucia, Queensland, Australia, 4067
 
-`r pub_stat("author")`
+**Phone**: (+61) 733 656 517
 
-`r x <- "roLk4NBRz8UC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-`r x <- "zYLM7Y9cAGgC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = Q1; impact factor = 4.9)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-`r x <- "ufrVoPGSRksC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")`
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-`r x <- "_FxGoFyzp5QC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-`r x <- "W7OEmFMy1HYC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-`r x <- "Y0pCki6q_DkC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (book chapter)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-`r x <- "qjMakFHDy7sC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-`r x <- "eQOLeE2rZwMC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = Q1; impact factor = 0.89)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-`r x <- "9yKSN-GCB0IC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-`r x <- "Tyk-4Ss8FVUC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-`r x <- "IjCSPb-OGe4C"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`; impact factor = `r pub_stat("impact_factor")`)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-Full Conference Presentations {data-icon=microphone}
---------------------------------------------------------------------------------
-
-### Capturing Change to Daily Mobility (and Immobility)
-
-eResearch Australasia Conference
-
-Brisbane, Australia
-
-2019
-
-**A. KImpton**
-
-### Contemporary Parking Policy and Practice in Large Australian Cities
-
-International Geographical Union
-
-L’Aquila, Italy
-
-2019 
-
-**A. Kimpton**, D. Pojani, C. Ryan, L. Ouyang, J. Corcoran, & N. Sipe 
-
-### Urban Immobility
-
-International Geographical Union
-
-Quebec, Canada
-
-2018
-
-**A. Kimpton**, J. Corcoran, D. Pojani, & N. Sipe
-
-### By Invitation Only: Private and Public Space, Neighborhood Social Cohesion and Crime
-
-American Society of Criminology Conference
-
-Atlanta G.A., United States
-
-2018
-
-**A. Kimpton**, J. Corcoran, & R. Wickes
-
-### The Duality of Neighborhood Social Conduits: A Case Study of Greenspace Crime
-
-American Society of Criminology Conference
-
-Philadelphia P.A., United States
-
-2017
-
-**A. Kimpton**, J. Corcoran, J. Hipp, R. Wickes, & R. Zahnow
-
-### Public Greenspaces and Crime
-
-American Society of Criminology Conference
-
-Washington D.C, United States
-
-2015
-
-**A. Kimpton**, J. Corcoran, & R. Wickes
-
-### Public Greenspaces and Crime: An Analysis of Crime Timing and Public Greenspace Amenities
-
-State of Australian Cities Conference
-
-Gold Coast, Australia
-
-2015
-
-**A. Kimpton**, J. Corcoran, & R. Wickes
-
-### Perspectives on Resilience: A Case Study of the 2011 Brisbane Floods
-
-Disaster and Emergency Management Conference
-
-Gold Coast, Queensland
-
-2014
-
-**A. Kimpton** & J. Corcoran
+**Email**: [jj.corcoran@uq.edu.au](jj.corcoran@uq.edu.au)
