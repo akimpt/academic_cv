@@ -1,5 +1,5 @@
 ---
-title: Curriculum Vitae
+title: Academic Curriculum Vitae
 author: Anthony Kimpton
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
@@ -163,7 +163,7 @@ Anthony Kimpton {#title}
 
 <h5>Academic Curriculum Vitae</h5>
 
-Anthony is quantitative sociologist and human geographer with advanced geospatial statistics training. Their overarching career aim reducing the open data and data science expertise barrier for researchers, policy makers, planning practitioners, and the public to co-design liveable cities where socially diverse communities can thrive.
+Anthony is a human geographer and data scientists with advanced geospatial statistics training. They are excited by the promise of smart cities and a socially sustainable global society starting from the neighbourhood-scale. Their overarching career objective is clearing the open and big data expertise barrier so that urban researchers and the public can co-design liveable cities where socially diverse communities can thrive.
 
 Education {data-icon=graduation-cap data-concise=true}
 --------------------------------------------------------------------------------
@@ -396,6 +396,211 @@ N/A
 
 **Role**: Peer-reviewer for journals including: *Applied Geography; Applied Spatial Analysis and Policy; Australian Planner; Behavioural Research Methods; City, Culture and Society; Ecosystem Services; Environment and Behaviour; Environment and Planning B: Urban Analytics and City Science; Environmental Planning and Management; Geoforum; Housing and the Built Environment; Land Use Policy; Landscape and Urban Planning; Landscape Research; Population Research; Research in Crime and Delinquency; Security Journal; Social Science Research; Spatial Science; Springer Nature: Social Science; Sustainability; Sustainable Cities and Society; Transport Reviews; Travel Behaviour and Society; Urban Studies; and Urbanism: International Research on Placemaking and Urban Sustainability*
 
+
+Publications   {data-icon=file}
+--------------------------------------------------------------------------------
+
+### Overall (Google Scholar `r format(Sys.time(), '%d/%m/%y')`)
+
+Total cites = `r total_cites` and h-index = `r round(h_index,0)`
+
+N/A
+
+Current
+
+`r x <- "5nxA0vEk-isC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (book chapter)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+
+`r x <- "0EnyYjriUFMC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (book chapter)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "UebtZRa9Y70C"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "hqOjcs7Dif8C"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = Q1; impact factor = 1.5)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "Se3iqnhoufwC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "roLk4NBRz8UC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "zYLM7Y9cAGgC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = Q1; impact factor = 4.9)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "ufrVoPGSRksC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "_FxGoFyzp5QC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "W7OEmFMy1HYC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "Y0pCki6q_DkC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (book chapter)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "qjMakFHDy7sC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "eQOLeE2rZwMC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = Q1; impact factor = 0.89)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "9yKSN-GCB0IC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "Tyk-4Ss8FVUC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- "IjCSPb-OGe4C"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
 Conference Presentations {data-icon=microphone}
 --------------------------------------------------------------------------------
 
@@ -592,20 +797,6 @@ N/A
 Referees  {data-icon=phone}
 --------------------------------------------------------------------------------
 
-### Professor Jonathan Corcoran
-
-Director of the Queensland Centre for Population Research
-
-N/A
-
-N/A
-
-**Mail**: Room 512, Level 5, Chamberlain Building (#35), University of Queensland, St Lucia, Queensland, Australia, 4067
-
-**Phone**: (+61) 733 656 517
-
-**Email**: [jj.corcoran@uq.edu.au](jj.corcoran@uq.edu.au)
-
 ### Professor Rebecca Wickes
 
 Director for the Monash Migration and Inclusion Centre
@@ -620,10 +811,9 @@ N/A
 
 **Email**: [rebecca.wickes@monash.edu.au](rebecca.wickes@monash.edu.au)
 
+### Professor Jonathan Corcoran
 
-### Dr Aude Bernard 
-
-Current Supervisor and a Leading Migration Researcher 
+Director of the Queensland Centre for Population Research
 
 N/A
 
@@ -631,7 +821,21 @@ N/A
 
 **Mail**: Room 512, Level 5, Chamberlain Building (#35), University of Queensland, St Lucia, Queensland, Australia, 4067
 
-**Phone**: (+61) 7 336 56704
+**Phone**: (+61) 733 656 517
 
-**Email**: [a.bernard@uq.edu.au](a.bernard@uq.edu.au)
+**Email**: [jj.corcoran@uq.edu.au](jj.corcoran@uq.edu.au)
+
+### Emeritus Professor Neil Sipe
+
+Former School Head of Urban and Regional Planning
+
+N/A
+
+N/A
+
+**Mail**: Chamberlain Building (#35), University of Queensland, St Lucia, Queensland, Australia, 4067
+
+**Phone**: (+61) 427 958 566
+
+**Email**: [n.sipe@uq.edu.au](n.sipe@uq.edu.au)
 
