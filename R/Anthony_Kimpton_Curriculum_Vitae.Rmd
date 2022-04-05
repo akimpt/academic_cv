@@ -135,41 +135,40 @@ pub_stat <- function(y) {
 }
 ```
 
-Aside
-================================================================================
+# Aside
 
-Contact Info {#contact}
---------------------------------------------------------------------------------
+## Contact Info {#contact}
 
-- <i class="fa fa-envelope"></i> [a.kimpton@uq.edu.au](a.kimpton@uq.edu.au)
-- <i class="fa fa-github"></i> [https://github.com/akimpt](https://github.com/akimpt)
-- <i class="fa fa-phone"></i> +61 412 452 471
-- For more information, please contact me via email.
+-   <i class="fa fa-envelope"></i> [a.kimpton\@uq.edu.au](a.kimpton@uq.edu.au)
+-   <i class="fa fa-github"></i> <https://github.com/akimpt>
+-   <i class="fa fa-phone"></i> +61 412 452 471
+-   For more information, please contact me via email.
 
-Skills {#skills}
---------------------------------------------------------------------------------
+## Skills {#skills}
 
-- Geospatial, temporal, textual, and machine learning statistical modelling
+-   Geospatial, temporal, textual, and machine learning statistical modelling
 
-- Advanced capabilities with R, Stata, ArcGIS, Python, SQL, and to a lesser extent, Bash, Docker, HTML, and CSS
+-   Advanced capabilities with R, Stata, ArcGIS, Python, SQL, and to a lesser extent, Bash, Docker, HTML, and CSS
 
-- Streamlined Github and rMarkdown workflow for generating and updating manuscripts, reports, presentations, APIs, interactive web pages and applications, and also academic resumes!
+-   Streamlined Github and rMarkdown workflow for generating and updating manuscripts, reports, presentations, APIs, interactive web pages and applications, and also academic resumes!
 
-Main
-================================================================================
+# Main
 
-Anthony Kimpton {#title}
---------------------------------------------------------------------------------
+## Anthony Kimpton {#title}
 
-<h5>Academic Curriculum Vitae</h5>
+<h5>
+
+Academic Curriculum Vitae
+
+</h5>
 
 Anthony is a human geographer and data scientists with advanced geospatial statistics training. They are excited by the promise of smart cities and a socially sustainable global society starting from the neighbourhood-scale. Their overarching career objective is clearing the open and big data expertise barrier so that urban researchers and the public can co-design liveable cities where socially diverse communities can thrive.
 
-Education {data-icon=graduation-cap data-concise=true}
---------------------------------------------------------------------------------
+## Education {data-icon="graduation-cap" data-concise="true"}
 
 ### Doctor of Philosophy
-The University of Queensland’s School of Earth and Environmental Sciences
+
+The University of Queensland's School of Earth and Environmental Sciences
 
 Brisbane, Australia
 
@@ -177,34 +176,33 @@ Brisbane, Australia
 
 **Thesis**: "The Sociability of Urban Greenspace: An Exploration of How Public Parks and Private Backyards Influence the Social Sustainability of Urban Communities" entailing the development of the first quantitative social sustainability measure, and employing social survey, crime incidence, remote imagery, administrative, and population census data to examine how public greenspace and backyards influence the neighbourhood social sustainability
 
-**Geography & Sociology**: Logistic, negative binomial, and linear regression, cluster analysis using Stata 
+**Geography & Sociology**: Logistic, negative binomial, and linear regression, cluster analysis using Stata
 
 ### Bachelor of Arts Honours (1st class)
 
-The University of Queensland’s School of Social Sciences
+The University of Queensland's School of Social Sciences
 
 Brisbane, Australia
 
 2012
 
-**Thesis**: "Seeing Green: Can the Objective Physical Environment Predict Place Attachment?" employing social survey, crime incidence, census, and administrative data to examine how public greenspace influences place attachment   
+**Thesis**: "Seeing Green: Can the Objective Physical Environment Predict Place Attachment?" employing social survey, crime incidence, census, and administrative data to examine how public greenspace influences place attachment
 
 **Sociology**: Multi-level statistical modelling; research design and scoping
 
 ### Bachelor of Arts
 
-The University of Queensland’s School of Social Sciences
+The University of Queensland's School of Social Sciences
 
 Brisbane, Australia
 
 2011
 
-**Sociology & Archaeology**: Statistical modelling using Stata and Excel; qualitative interviewing methods; geo-spatial analysis or GIS  using ArcGIS; field work; laboratory methods and procedures
+**Sociology & Archaeology**: Statistical modelling using Stata and Excel; qualitative interviewing methods; geo-spatial analysis or GIS using ArcGIS; field work; laboratory methods and procedures
 
-Grants and Awards {data-icon=trophy}
---------------------------------------------------------------------------------
+## Grants and Awards {data-icon="trophy"}
 
-### $89,342 High Impact Projects Grant 
+### \$89,342 High Impact Projects Grant
 
 The Australian Urban Research Infrastructure Network
 
@@ -216,7 +214,7 @@ Melbourne, Australia
 
 ### Dean's Award for Outstanding HDR Thesis
 
-The University of Queensland’s Graduate School
+The University of Queensland's Graduate School
 
 N/A
 
@@ -232,11 +230,11 @@ N/A
 
 2020
 
-**Aim**: Competitive grant funding travel to the 2020 International Geographical Union conference in Turkey (cancelled due to COVID)  
+**Aim**: Competitive grant funding travel to the 2020 International Geographical Union conference in Turkey (cancelled due to COVID)
 
 ### Early Career Researcher Grant
 
-The University of Queensland’s School of Earth and Environmental Sciences 
+The University of Queensland's School of Earth and Environmental Sciences
 
 N/A
 
@@ -246,50 +244,49 @@ N/A
 
 ### Australian Postgraduate Award
 
-The Australian Research Council 
+The Australian Research Council
 
 N/A
 
 2019
 
-**Aim**: Competitive grant providing $24,653 per annum throughout PhD candidature
+**Aim**: Competitive grant providing \$24,653 per annum throughout PhD candidature
 
-Research Experience {data-icon=laptop}
---------------------------------------------------------------------------------
+## Research Experience {data-icon="laptop"}
 
 ### Postdoctoral Research Fellow
 
-The University of Queensland’s School of Earth and Environmental Sciences 
+The University of Queensland's School of Earth and Environmental Sciences
 
 Brisbane, Australia
 
 2022
 
-**Role**: Investigate Australian international and internal migration, migration policy, visa types and regional retention  of immigrrants using the ABS MADIP service and primarily the Traveller module with the R (programming language) for all GIS, statistical modelling, and reporting.  
+**Role**: Investigate Australian international and internal migration, migration policy, visa types and regional retention of immigrrants using the ABS MADIP service and primarily the Traveller module with the R (programming language) for all GIS, statistical modelling, and reporting.
 
 ### Software Developer
 
-The Australian Urban Research Infrastructure Network and the University of Queensland’s School of Civil Engineering 
+The Australian Urban Research Infrastructure Network and the University of Queensland's School of Civil Engineering
 
 Brisbane, Australia
 
 2021
 
-**Role**: Develop microservices (AGILE software development) for the Australian Transport Research Cloud e.g, interactive graphics and dashboards, and application programming interfaces (API) for the public and collaborating universities using R (programming language), Docker for containerisation, and Bash for AURIN Virtual Machine operations   
+**Role**: Develop microservices (AGILE software development) for the Australian Transport Research Cloud e.g, interactive graphics and dashboards, and application programming interfaces (API) for the public and collaborating universities using R (programming language), Docker for containerisation, and Bash for AURIN Virtual Machine operations
 
 ### Postdoctoral Research Fellow
 
-The Queensland Department of Transport and Main Roads & The University of Queensland’s School of Earth and Environmental Sciences 
+The Queensland Department of Transport and Main Roads & The University of Queensland's School of Earth and Environmental Sciences
 
 Brisbane, Australia
 
 2018 - 2020
 
-**Role**: Review Australian land use and transport policy, examine land use and census data to determine how parking supply aligns with policy and influences urban mobility using the R (programming language) for all GIS, statistical modelling, and reporting including the following project page: [https://parks-uq.github.io/](https://parks-uq.github.io/)  
+**Role**: Review Australian land use and transport policy, examine land use and census data to determine how parking supply aligns with policy and influences urban mobility using the R (programming language) for all GIS, statistical modelling, and reporting including the following project page: <https://parks-uq.github.io/>
 
 ### Research Assistant
 
-The University of Queensland’s School of Geography, Planning, and Environmental Management 
+The University of Queensland's School of Geography, Planning, and Environmental Management
 
 Brisbane, Australia
 
@@ -297,12 +294,11 @@ Brisbane, Australia
 
 **Role**: Review community sociology and environmental criminology research literature focusing on how natural disasters impact community sociability, and examine social survey, crime incident, census, flood, and administrative data using ArcGIS for spatial analyses and cartography, and Stata for statistical modelling and data visualization
 
-Teaching Experience {data-icon=chalkboard-teacher}
---------------------------------------------------------------------------------
+## Teaching Experience {data-icon="chalkboard-teacher"}
 
-### PhD Supervisor 
+### PhD Supervisor
 
-The University of Queensland’s School of Civil Engineering & School of Earth and Environmental Sciences 
+The University of Queensland's School of Civil Engineering & School of Earth and Environmental Sciences
 
 Brisbane, Australia
 
@@ -310,25 +306,25 @@ Brisbane, Australia
 
 Supervising one PhD candidate investigating the First and Last Mile Problem of public transport and further investigating internal migration of immigrants within Australia
 
-### Sessional Lecturer 
+### Sessional Lecturer
 
-The University of Queensland’s School of Earth and Environmental Sciences 
+The University of Queensland's School of Earth and Environmental Sciences
 
 Brisbane, Australia
 
 2016 - present
 
-**Teaching Evaluations**: Ranging 4.2 to 4.5 on a 5-point scale with 4.3 most recently awarded for both online and face-to-face delivery 
+**Teaching Evaluations**: Ranging 4.2 to 4.5 on a 5-point scale with 4.3 most recently awarded for both online and face-to-face delivery
 
 ::: concise
-- **GEOG1000: Human Settlements**: Develop and present lectures on the history of human settlements and future of cities to over 200 first-year urban planning, geography, and environmental management students per semester
-- **GEOG2202/GEOG7202: Global Population Issues**: Develop and deliver lectures on global demographic challenges to over 60 second-year and postgraduate urban planning and geography students per semester
-- **GEOG3003: The Global Metropolis**: Invited for first lecturing assignment to revamp and re-badge the “GEOG3030: the Asian Metropolis” capstone course by developing and delivering six new lectures on topics including smart cities, transport, and sustainability to over 40 final-year urban planning and geography students per semester
+-   **GEOG1000: Human Settlements**: Develop and present lectures on the history of human settlements and future of cities to over 200 first-year urban planning, geography, and environmental management students per semester
+-   **GEOG2202/GEOG7202: Global Population Issues**: Develop and deliver lectures on global demographic challenges to over 60 second-year and postgraduate urban planning and geography students per semester
+-   **GEOG3003: The Global Metropolis**: Invited for first lecturing assignment to revamp and re-badge the "GEOG3030: the Asian Metropolis" capstone course by developing and delivering six new lectures on topics including smart cities, transport, and sustainability to over 40 final-year urban planning and geography students per semester
 :::
 
 ### School Representative
 
-The University of Queensland’s School of Earth and Environmental Sciences 
+The University of Queensland's School of Earth and Environmental Sciences
 
 Brisbane, Australia
 
@@ -336,29 +332,28 @@ Brisbane, Australia
 
 **Role**: Invited and employed to develop and deliver presentations at high schools, career open days, and high school teaching conferences to promote geography, planning, environmental management, and geology
 
-### Lead Tutor/Demonstrator 
+### Lead Tutor/Demonstrator
 
-The University of Queensland’s School of Earth and Environmental Sciences & School of Social Sciences
+The University of Queensland's School of Earth and Environmental Sciences & School of Social Sciences
 
 Brisbane, Australia
 
 2013 - 2018
 
-**Teaching Evaluations**: Ending with 4.7 on a 5-point scale for face-to-face delivery and consistently high evaluations created opportunities to lecture    
+**Teaching Evaluations**: Ending with 4.7 on a 5-point scale for face-to-face delivery and consistently high evaluations created opportunities to lecture
 
 ::: concise
-- **GEOG1000: Human Settlements**: Develop practicals, workbooks, and assessments for over 200 first-year geography, environmental management, and urban planning students per semester, and manage and train up to 4 demonstrators running a portion of these practicals per semester
-- **SOCY2339/7339: Introduction to Quantitative Methods**: Develop and deliver introductory statistical modelling workshops using Stata for over 60 second-year and 20 research by higher degree students per semester
-- **SOCY2340: Sociology of the City**: Tutor across urban topics including public space, social equity, community sociability, and environmental criminology to over 60 second-year sociology, criminology, urban planning, and geography students per semester
-- **CRIM1000: Introduction to Criminology** Develop and deliver introductory criminology tutorials to over 60 first-year criminology students per semester
+-   **GEOG1000: Human Settlements**: Develop practicals, workbooks, and assessments for over 200 first-year geography, environmental management, and urban planning students per semester, and manage and train up to 4 demonstrators running a portion of these practicals per semester
+-   **SOCY2339/7339: Introduction to Quantitative Methods**: Develop and deliver introductory statistical modelling workshops using Stata for over 60 second-year and 20 research by higher degree students per semester
+-   **SOCY2340: Sociology of the City**: Tutor across urban topics including public space, social equity, community sociability, and environmental criminology to over 60 second-year sociology, criminology, urban planning, and geography students per semester
+-   **CRIM1000: Introduction to Criminology** Develop and deliver introductory criminology tutorials to over 60 first-year criminology students per semester
 :::
 
-Professional Experience {data-icon=suitcase}
---------------------------------------------------------------------------------
+## Professional Experience {data-icon="suitcase"}
 
 ### The Early and Mid Career Researcher Representative
 
-The University of Queensland’s Faculty of Science Research Committee
+The University of Queensland's Faculty of Science Research Committee
 
 Brisbane, Australia
 
@@ -368,7 +363,7 @@ Brisbane, Australia
 
 ### The Urban Planning and Geography Representative
 
-The University of Queensland’s School of Earth and Environmental Sciences Early Career Researcher Committee
+The University of Queensland's School of Earth and Environmental Sciences Early Career Researcher Committee
 
 Brisbane, Australia
 
@@ -384,7 +379,7 @@ N/A
 
 2018 - present
 
-**Role**: Examine RhD milestones and theses on topics including environmental criminology, urban sociology, demography, land use and transport planning, and urban ecology 
+**Role**: Examine RhD milestones and theses on topics including environmental criminology, urban sociology, demography, land use and transport planning, and urban ecology
 
 ### Academic Journal Reviewer
 
@@ -396,9 +391,7 @@ N/A
 
 **Role**: Peer-reviewer for journals including: *Applied Geography; Applied Spatial Analysis and Policy; Australian Planner; Behavioural Research Methods; City, Culture and Society; Ecosystem Services; Environment and Behaviour; Environment and Planning B: Urban Analytics and City Science; Environmental Planning and Management; Geoforum; Housing and the Built Environment; Land Use Policy; Landscape and Urban Planning; Landscape Research; Population Research; Research in Crime and Delinquency; Security Journal; Social Science Research; Spatial Science; Springer Nature: Social Science; Sustainability; Sustainable Cities and Society; Transport Reviews; Travel Behaviour and Society; Urban Studies; and Urbanism: International Research on Placemaking and Urban Sustainability*
 
-
-Publications   {data-icon=file}
---------------------------------------------------------------------------------
+## Publications {data-icon="file"}
 
 ### Overall (Google Scholar `r format(Sys.time(), '%d/%m/%y')`)
 
@@ -419,7 +412,6 @@ N/A
 `r pub_stat("year")`
 
 `r pub_stat("author")`
-
 
 `r x <- "0EnyYjriUFMC"`
 
@@ -601,8 +593,7 @@ N/A
 
 `r pub_stat("author")`
 
-Conference Presentations {data-icon=microphone}
---------------------------------------------------------------------------------
+## Conference Presentations {data-icon="microphone"}
 
 ### Capturing Change to Daily Mobility (and Immobility)
 
@@ -618,11 +609,11 @@ Brisbane, Australia
 
 International Geographical Union
 
-L’Aquila, Italy
+L'Aquila, Italy
 
-2019 
+2019
 
-**A. Kimpton**, D. Pojani, C. Ryan, L. Ouyang, J. Corcoran, & N. Sipe 
+**A. Kimpton**, D. Pojani, C. Ryan, L. Ouyang, J. Corcoran, & N. Sipe
 
 ### Urban Immobility
 
@@ -684,8 +675,7 @@ Gold Coast, Queensland
 
 **A. Kimpton** & J. Corcoran
 
-Professional Membership  {data-icon=id-card}
---------------------------------------------------------------------------------
+## Professional Membership {data-icon="id-card"}
 
 ### The Institute of Australian Geographers
 
@@ -703,8 +693,7 @@ N/A
 
 N/A
 
-Other Skills and Qualifications {data-icon=graduation-cap data-concise=true}
---------------------------------------------------------------------------------
+## Other Skills and Qualifications {data-icon="graduation-cap" data-concise="true"}
 
 ### Asymmetric Innovations' Impact Forge
 
@@ -794,22 +783,21 @@ N/A
 
 2013
 
-Referees  {data-icon=phone}
---------------------------------------------------------------------------------
+## Referees {data-icon="phone"}
 
-### Professor Rebecca Wickes
+### Dr Aude Bernard 
 
-Director for the Monash Migration and Inclusion Centre
-
-N/A
+Current Supervisor and a Leading Migration Researcher 
 
 N/A
 
-**Mail**: School of Social Sciences, Monash University, Clayton, Victoria, Australia,  3800
+N/A
 
-**Phone**: (+61) 413 623 929
+**Mail**: Room 512, Level 5, Chamberlain Building (#35), University of Queensland, St Lucia, Queensland, Australia, 4067
 
-**Email**: [rebecca.wickes@monash.edu.au](rebecca.wickes@monash.edu.au)
+**Phone**: (+61) 7 336 56704
+
+**Email**: [a.bernard@uq.edu.au](a.bernard@uq.edu.au)
 
 ### Professor Jonathan Corcoran
 
@@ -823,7 +811,21 @@ N/A
 
 **Phone**: (+61) 733 656 517
 
-**Email**: [jj.corcoran@uq.edu.au](jj.corcoran@uq.edu.au)
+**Email**: [jj.corcoran\@uq.edu.au](jj.corcoran@uq.edu.au)
+
+### Professor Rebecca Wickes
+
+Director for the Monash Migration and Inclusion Centre
+
+N/A
+
+N/A
+
+**Mail**: School of Social Sciences, Monash University, Clayton, Victoria, Australia, 3800
+
+**Phone**: (+61) 413 623 929
+
+**Email**: [rebecca.wickes\@monash.edu.au](rebecca.wickes@monash.edu.au)
 
 ### Emeritus Professor Neil Sipe
 
@@ -837,5 +839,4 @@ N/A
 
 **Phone**: (+61) 427 958 566
 
-**Email**: [n.sipe@uq.edu.au](n.sipe@uq.edu.au)
-
+**Email**: [n.sipe\@uq.edu.au](n.sipe@uq.edu.au)
