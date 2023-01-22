@@ -67,20 +67,20 @@ publications <- get_publications(id) %>%
          ) %>% 
   drop_na(journal)
 
-impact <- get_impactfactor(journals=publications$journal, max.distance = 0.2) %>% 
-  clean_names() %>% 
-  transmute(journal = str_to_title(journal),
-         journal = str_replace_all(journal, "And", "and"),
-         journal = str_replace_all(journal, "In", "in"),
-         journal = str_replace_all(journal, "Of", "of"),
-         journal = str_replace_all(journal, "To", "to"),
-         journal = str_replace_all(journal, "The", "the"),
-         journal = str_replace(journal, "^the", "The"),
-         journal = str_replace(journal, "Parking", "Parking: an International Perspective"),
-         journal = str_replace(journal, " Media Group", ""),
-         journal = str_replace(journal, " Media Trust", ""),
-         impact_factor = round(impact_factor, 1)) %>% 
-  drop_na()
+# impact <- get_impactfactor(journals=publications$journal, max.distance = 0.2) %>% 
+#   clean_names() %>% 
+#   transmute(journal = str_to_title(journal),
+#          journal = str_replace_all(journal, "And", "and"),
+#          journal = str_replace_all(journal, "In", "in"),
+#          journal = str_replace_all(journal, "Of", "of"),
+#          journal = str_replace_all(journal, "To", "to"),
+#          journal = str_replace_all(journal, "The", "the"),
+#          journal = str_replace(journal, "^the", "The"),
+#          journal = str_replace(journal, "Parking", "Parking: an International Perspective"),
+#          journal = str_replace(journal, " Media Group", ""),
+#          journal = str_replace(journal, " Media Trust", ""),
+#          impact_factor = round(impact_factor, 1)) %>% 
+#   drop_na()
 
 rank <- get_journalrank(journals=publications$journal) %>% 
   clean_names() %>% 
@@ -98,8 +98,8 @@ rank <- get_journalrank(journals=publications$journal) %>%
             categories) %>%
   drop_na()
 
-peer_reviewed <- publications %>% 
-  left_join(impact, by = "journal") %>% 
+publications <- publications %>% 
+  #left_join(impact, by = "journal") %>% 
   left_join(rank, by = "journal") %>% 
   mutate(journal = str_replace(journal, "^", "*"),
          journal = str_replace(journal, "$", "*"),
@@ -108,17 +108,17 @@ peer_reviewed <- publications %>%
   arrange(desc(year), author, title) %>% 
   mutate(sjr_best_quartile)
 
-the_conversation <- peer_reviewed %>% 
-  filter(journal == "*The Conversation*")
-
-peer_reviewed <- peer_reviewed %>% 
-  filter(journal != "*The Conversation*") 
+# the_conversation <- peer_reviewed %>% 
+#   filter(journal == "*The Conversation*")
+# 
+# peer_reviewed <- peer_reviewed %>% 
+#   filter(journal != "*The Conversation*") 
 
 history_id <- get_citation_history(id)
 
 #history_x <- get_article_cite_history(id, "9yKSN-GCB0IC")
 
-predicted_h_index <- predict_h_index(id)
+#predicted_h_index <- predict_h_index(id)
 
 #DE Acuna, S Allesina, KP Kording (2012) Future impact: Predicting scientific success. Nature 489, 201-202. doi: 10.1038/489201a.
 
@@ -131,7 +131,7 @@ h_index <- profile$h_index
 total_cites <- profile$total_cites
 
 pub_stat <- function(y) {
-  peer_reviewed %>% filter(pubid == x) %>% pull(y)
+  publications %>% filter(pubid == x) %>% slice_head(n = 1) %>% pull(y)
 }
 ```
 
@@ -153,7 +153,7 @@ Skills {#skills}
 
 - Advanced capabilities with R, Stata, ArcGIS, Python, SQL, and to a lesser extent, Bash, Docker, HTML, and CSS
 
-- Streamlined Github and rMarkdown workflow for generating and updating manuscripts, reports, presentations, APIs, interactive web pages and applications, and also academic resumes!
+- Streamlined Github and rMarkdown workflow for generating and updating manuscripts, reports, presentations, APIs, interactive web pages and applications, and for example, this resume!
 
 Main
 ================================================================================
@@ -163,7 +163,7 @@ Anthony Kimpton {#title}
 
 <h5>Academic Curriculum Vitae</h5>
 
-Anthony is an urban planner with advanced geospatial statistics training. They are excited by the promise of smart cities and a socially sustainable global society starting from the neighbourhood-scale. Their overarching career objective is clearing the open and big data expertise barrier so that urban researchers and the public can co-design liveable cities where socially diverse communities can thrive.
+Anthony is an urban planner with advanced geospatial statistics training. They are currently an adjunct researcher at the University Queensland and has an ongoing role within the Australian Bureau of Statistics as a [MADIP Data Specialist](https://www.abs.gov.au/about/data-services/data-integration/integrated-data/multi-agency-data-integration-project-madip) where they supervise data scientists within the Big Data Pathways section. They are excited by the promise of smart cities and a socially sustainable global society starting from the neighbourhood-scale. Their overarching career objective is clearing the open and big data expertise barrier so that urban researchers and the public can co-design liveable cities where socially diverse communities can thrive.
 
 Education {data-icon=graduation-cap data-concise=true}
 --------------------------------------------------------------------------------
@@ -204,7 +204,7 @@ Brisbane, Australia
 Grants and Awards {data-icon=trophy}
 --------------------------------------------------------------------------------
 
-### $89,342 High Impact Projects Grant 
+### $89,342 [High Impact Projects Grant](https://aurin.org.au/about-aurin/projects/aurin-high-impact-projects/)
 
 The Australian Urban Research Infrastructure Network
 
@@ -214,7 +214,7 @@ Melbourne, Australia
 
 **Aim**: Lead the development of the Green Australian Vehicle Ownership (GreenAVO) service that harvests and links Australian state and territory vehicle registration APIs with vehicle characteristics from the Australian Green Vehicle Guide API to reveal spatiotemporal trends in vehicle ownership at the postcode-level for tracking, predicting, and accelerating the national transition towards hybrid and electric vehicles through strategic planning and infrastructure.
 
-### Dean's Award for Outstanding HDR Thesis
+### [Dean's Award for Outstanding HDR Thesis](https://my.uq.edu.au/information-and-services/higher-degree-research/my-thesis/deans-award-outstanding-hdr-theses)
 
 The University of Queensland’s Graduate School
 
@@ -257,6 +257,16 @@ N/A
 Research Experience {data-icon=laptop}
 --------------------------------------------------------------------------------
 
+### MADIP Data Specialist
+
+The Australian Bureau of Statistics' Big Data Pathways Section 
+
+Brisbane, Australia
+
+2022
+
+**Role**: Investigate the extent to which government records can replace survey content collected by the Australian Bureau of Statistics. They are currently investigating dwelling structure and location (ABS big data), income tax records (ATO big data), and government payments (DSS and DVA big data) to replace over 120 survey questions collected from 45k Australians every 2 years. Further,  they supervise graduate data scientists investigating disability (NDIS big data) and concession card (DSS big data).
+
 ### Postdoctoral Research Fellow
 
 The University of Queensland’s School of Earth and Environmental Sciences 
@@ -265,7 +275,7 @@ Brisbane, Australia
 
 2022
 
-**Role**: Investigate Australian international and internal migration, migration policy, visa types and regional retention  of immigrrants using the ABS MADIP service and primarily the Traveller module with the R (programming language) for all GIS, statistical modelling, and reporting.  
+**Role**: Investigate Australian international and internal migration, migration policy, visa types and regional retention  of immigrants using the ABS MADIP service and primarily the Traveller module with the R (programming language) for all GIS, statistical modelling, and reporting.  
 
 ### Software Developer
 
@@ -408,11 +418,14 @@ N/A
 
 Current
 
+<!-- publications %>% arrange(desc(year), desc(cites)) %>% select(title, pubid) -->
+
+<!-- The role of household modality style in first and last mile travel mode choice -->
 `r x <- "5nxA0vEk-isC"`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (book chapter)
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
 
 N/A
 
@@ -420,12 +433,12 @@ N/A
 
 `r pub_stat("author")`
 
-
-`r x <- "0EnyYjriUFMC"`
+<!-- Neighbourhood places, collective efficacy and crime: a longitudinal perspective --> 
+`r x <- "UebtZRa9Y70C"`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (book chapter)
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
 
 N/A
 
@@ -433,7 +446,61 @@ N/A
 
 `r pub_stat("author")`
 
-`r x <- "UebtZRa9Y70C"`
+<!-- Weather to scoot? How weather shapes shared e-scooter ridership patterns -->
+`r x <- "ZeXyd9-uunAC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+<!-- Community resilience to crime: a study of the 2011 Brisbane flood -->
+`r x <- "dhFuZR0502QC"`
+
+### `r pub_stat("title")`  (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+<!-- E-scooters are becoming wildly popular–but we have to factor in the weather -->
+`r x <- "IWHjjKOFINEC"`
+
+### `r pub_stat("title")`  (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (popular media)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+<!-- Neighbourhood correlates of average population walking: using aggregated, anonymised mobile phone data to identify where people walk -->
+`r x <- "L8Ckcad2t8MC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+<!-- The temporality of on-street parking: exploring the role of land-use mix and change on parking dynamics -->
+
+`r x <- "7PzlFSSx8tAC"`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
@@ -445,17 +512,7 @@ N/A
 
 `r pub_stat("author")`
 
-`r x <- "hqOjcs7Dif8C"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = Q1; impact factor = 1.5)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
+<!-- The socio-spatial determinants of covid-19 diffusion: the impact of globalisation, settlement characteristics and population -->
 
 `r x <- "Se3iqnhoufwC"`
 
@@ -469,41 +526,7 @@ N/A
 
 `r pub_stat("author")`
 
-`r x <- "roLk4NBRz8UC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-`r x <- "zYLM7Y9cAGgC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = Q1; impact factor = 4.9)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-`r x <- "ufrVoPGSRksC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")`
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
+<!-- Contemporary parking policy, practice, and outcomes in three large Australian cities -->
 
 `r x <- "_FxGoFyzp5QC"`
 
@@ -517,6 +540,50 @@ N/A
 
 `r pub_stat("author")`
 
+<!-- Sociospatial factors explaining daylight saving preferences in Australia -->
+
+`r x <- "hqOjcs7Dif8C"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+<!-- Explaining the railheading travel behaviour with home location, park `n` ride characteristics, and the built environment to strengthen multimodalism -->
+
+`r x <- "roLk4NBRz8UC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+<!-- Parking policy and bay-sharing for unmooring automobility from cities -->
+
+`r x <- "0EnyYjriUFMC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (book chapter)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+<!-- Parking behavior: park ‘n’ ride (pnr) to encourage multimodalism in Brisbane -->
+
 `r x <- "W7OEmFMy1HYC"`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
@@ -528,6 +595,8 @@ N/A
 `r pub_stat("year")`
 
 `r pub_stat("author")`
+
+<!-- Setting the agenda for parking research in other cities -->
 
 `r x <- "Y0pCki6q_DkC"`
 
@@ -541,6 +610,50 @@ N/A
 
 `r pub_stat("author")`
 
+<!-- Upset diagrams for examining whether parking maximums influence modal choice and car holdings -->
+
+`r x <- "zYLM7Y9cAGgC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+<!-- Visualising Australia's older population using grid maps -->
+
+`r x <- "ufrVoPGSRksC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+<!-- The temporality of place: constructing a temporal typology of crime in commercial precincts -->
+
+`r x <- "eQOLeE2rZwMC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+<!--  Planning students' conceptions of research -->
+
 `r x <- "qjMakFHDy7sC"`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
@@ -553,17 +666,47 @@ N/A
 
 `r pub_stat("author")`
 
-`r x <- "eQOLeE2rZwMC"`
+<!-- What can our cities do about sprawl, congestion and pollution? Tip: scrap car parking -->
+`r x <- "YsMSGLbcyi4C"`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (sjr = Q1; impact factor = 0.89)
+`r pub_stat("journal")` (popular media)
 
 N/A
 
 `r pub_stat("year")`
 
 `r pub_stat("author")`
+
+<!-- Cycling and walking are short-changed when it comes to transport funding in Australia -->
+`r x <- "WF5omc3nYNoC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (popular media)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+<!-- Why driverless vehicles should not be given unchecked access to our cities -->
+
+`r x <- "2osOgNQ5qMEC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (popular media)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+<!-- A spatial analytic approach for classifying greenspace and comparing greenspace social equity -->
 
 `r x <- "9yKSN-GCB0IC"`
 
@@ -577,6 +720,8 @@ N/A
 
 `r pub_stat("author")`
 
+<!-- Greenspace and crime: an analysis of greenspace types, neighboring composition, and the temporal dimensions of crime -->
+
 `r x <- "Tyk-4Ss8FVUC"`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
@@ -588,6 +733,8 @@ N/A
 `r pub_stat("year")`
 
 `r pub_stat("author")`
+
+<!-- Greenspace and place attachment: do greener suburbs lead to greater residential place attachment? -->
 
 `r x <- "IjCSPb-OGe4C"`
 
@@ -612,7 +759,7 @@ Brisbane, Australia
 
 2019
 
-**A. KImpton**
+**A. Kimpton**
 
 ### Contemporary Parking Policy and Practice in Large Australian Cities
 
@@ -797,23 +944,9 @@ N/A
 Referees  {data-icon=phone}
 --------------------------------------------------------------------------------
 
-### Professor Rebecca Wickes
-
-Director for the Monash Migration and Inclusion Centre
-
-N/A
-
-N/A
-
-**Mail**: School of Social Sciences, Monash University, Clayton, Victoria, Australia,  3800
-
-**Phone**: (+61) 413 623 929
-
-**Email**: [rebecca.wickes@monash.edu.au](rebecca.wickes@monash.edu.au)
-
 ### Professor Jonathan Corcoran
 
-Director of the Queensland Centre for Population Research
+Deputy Associate Dean of Science and Director of the Queensland Centre for Population Research
 
 N/A
 
@@ -824,6 +957,20 @@ N/A
 **Phone**: (+61) 733 656 517
 
 **Email**: [jj.corcoran@uq.edu.au](jj.corcoran@uq.edu.au)
+
+### Professor Rebecca Wickes
+
+Former Director for the Monash Migration and Inclusion Centre
+
+N/A
+
+N/A
+
+**Mail**: School of Criminology and Criminal Justice, Griffith University, Mount Gravatt, Queensland, Australia,  4122
+
+**Phone**: (+61) 413 623 929
+
+**Email**: [r.wickes@griffith.edu.au](r.wickes@griffith.edu.au)
 
 ### Emeritus Professor Neil Sipe
 
