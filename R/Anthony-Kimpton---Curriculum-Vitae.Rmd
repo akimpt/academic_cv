@@ -49,6 +49,7 @@ publications <- get_publications(id) %>%
          title = str_replace(title, "7. ", ""),
          title = str_replace(title, "brisbane", "Brisbane"),
          title = str_replace(title, "australia", "Australia"),
+         title = str_replace(title, "covid", "COVID"),
          author = str_replace(author, "A Kimpton", "**A Kimpton**"),
          author = sub(",([^,]*)$", " &\\1", author),
          journal = str_to_title(journal),
@@ -163,7 +164,7 @@ Anthony Kimpton {#title}
 
 <h5>Academic Curriculum Vitae</h5>
 
-Anthony is an urban planner with advanced geospatial statistics training. They are currently an adjunct researcher at the University Queensland and has an ongoing role within the Australian Bureau of Statistics as a [MADIP Data Specialist](https://www.abs.gov.au/about/data-services/data-integration/integrated-data/multi-agency-data-integration-project-madip) where they supervise data scientists within the Big Data Pathways section. They are excited by the promise of smart cities and a socially sustainable global society starting from the neighbourhood-scale. Their overarching career objective is clearing the open and big data expertise barrier so that urban researchers and the public can co-design liveable cities where socially diverse communities can thrive.
+Anthony is an urban planner with advanced geospatial statistics training. They are currently an adjunct researcher at the University Queensland and have an ongoing role within the Australian Bureau of Statistics as a [MADIP Data Specialist](https://www.abs.gov.au/about/data-services/data-integration/integrated-data/multi-agency-data-integration-project-madip) where they supervise data scientists within the Big Data Pathways section. They are excited by the promise of smart cities and a socially sustainable global society starting from the neighbourhood-scale. Their overarching career objective is clearing the open and big data expertise barrier so that urban researchers and the public can co-design liveable cities where socially diverse communities can thrive.
 
 Education {data-icon=graduation-cap data-concise=true}
 --------------------------------------------------------------------------------
