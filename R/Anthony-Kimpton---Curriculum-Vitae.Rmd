@@ -44,12 +44,13 @@ id <- get_scholar_id(first_name = "Anthony", last_name = "Kimpton", affiliation 
 
 publications <- get_publications(id) %>%
   clean_names() %>% 
-  filter(pubid != c("UeHWp8X0CEIC", "u5HHmVD_uO8C")) %>% 
+  filter(!(pubid %in% c("YsMSGLbcyi4C", "4DMP91E08xMC", "d1gkVwhDpl0C"))) %>% 
   transmute(title = str_to_sentence(title),
          title = str_replace(title, "7. ", ""),
          title = str_replace(title, "brisbane", "Brisbane"),
          title = str_replace(title, "australia", "Australia"),
          title = str_replace(title, "covid", "COVID"),
+         title = ifelse(pubid == "mVmsd5A6BfQC", "The pitfalls and benefits of using administrative data for internal migration research: An evaluation of Australia’s Person Level Integrated Data Asset (PLIDA)", title),
          author = str_replace(author, "A Kimpton", "**A Kimpton**"),
          author = sub(",([^,]*)$", " &\\1", author),
          journal = str_to_title(journal),
@@ -62,26 +63,24 @@ publications <- get_publications(id) %>%
          journal = str_replace(journal, "Parking", "Parking: an International Perspective"),
          journal = str_replace(journal, " Media Group", ""),
          journal = str_replace(journal, " Media Trust", ""),
+         journal = ifelse(pubid == "mVmsd5A6BfQC", "Demographic Research", journal),
          cites,
          year,
+         year = ifelse(pubid == "mVmsd5A6BfQC", 2014, year),
          pubid
          ) %>% 
-  drop_na(journal)
+  drop_na(journal) %>% 
+  drop_na(year)
 
-# impact <- get_impactfactor(journals=publications$journal, max.distance = 0.2) %>% 
-#   clean_names() %>% 
-#   transmute(journal = str_to_title(journal),
-#          journal = str_replace_all(journal, "And", "and"),
-#          journal = str_replace_all(journal, "In", "in"),
-#          journal = str_replace_all(journal, "Of", "of"),
-#          journal = str_replace_all(journal, "To", "to"),
-#          journal = str_replace_all(journal, "The", "the"),
-#          journal = str_replace(journal, "^the", "The"),
-#          journal = str_replace(journal, "Parking", "Parking: an International Perspective"),
-#          journal = str_replace(journal, " Media Group", ""),
-#          journal = str_replace(journal, " Media Trust", ""),
-#          impact_factor = round(impact_factor, 1)) %>% 
-#   drop_na()
+publications <- data_frame(title = c("Please Mind the Gap: Examining Regional Variations
+in Private Car Carbon Dioxide Emissions and Fuel Consumption The Case of Australia"),
+                           author = c("K Lim, Y Lu, **A Kimpton**, R Zahnow, T Li,  J Dodson, N Sipe, & J Corcoran"),
+                           journal = c("Journal of Transport Geography"),
+                           cites = c(0),
+                           year = c(2024),
+                           pubid = c("Manual1")) %>% 
+  rbind(publications)
+
 
 rank <- get_journalrank(journals=publications$journal) %>% 
   clean_names() %>% 
@@ -107,7 +106,9 @@ publications <- publications %>%
          sjr_best_quartile = ifelse(pubid == "ufrVoPGSRksC" | pubid == "roLk4NBRz8UC", "Q2", "Q1"),
          year = ifelse(pubid == "_FxGoFyzp5QC", 2021, year)) %>% 
   arrange(desc(year), author, title) %>% 
-  mutate(sjr_best_quartile)
+  mutate(sjr_best_quartile) %>% 
+  distinct(title, .keep_all = TRUE) %>% 
+  arrange(desc(year), desc(author))
 
 # the_conversation <- peer_reviewed %>% 
 #   filter(journal == "*The Conversation*")
@@ -134,6 +135,8 @@ total_cites <- profile$total_cites
 pub_stat <- function(y) {
   publications %>% filter(pubid == x) %>% slice_head(n = 1) %>% pull(y)
 }
+
+
 ```
 
 Aside
@@ -142,7 +145,7 @@ Aside
 Contact Info {#contact}
 --------------------------------------------------------------------------------
 
-- <i class="fa fa-envelope"></i> [a.kimpton@uq.edu.au](a.kimpton@uq.edu.au)
+- <i class="fa fa-envelope"></i> [a.kimpton@uq.edu.au](a.kimpton@unisq.edu.au)
 - <i class="fa fa-github"></i> [https://github.com/akimpt](https://github.com/akimpt)
 - <i class="fa fa-phone"></i> +61 412 452 471
 - For more information, please contact me via email.
@@ -164,7 +167,7 @@ Anthony Kimpton {#title}
 
 <h5>Academic Curriculum Vitae</h5>
 
-Anthony is an urban planner with advanced geospatial statistics training. They are currently an adjunct researcher at the University Queensland and have an ongoing role within the Australian Bureau of Statistics as a [MADIP Data Specialist](https://www.abs.gov.au/about/data-services/data-integration/integrated-data/multi-agency-data-integration-project-madip) where they supervise data scientists within the Big Data Pathways section. They are excited by the promise of smart cities and a socially sustainable global society starting from the neighbourhood-scale. Their overarching career objective is clearing the open and big data expertise barrier so that urban researchers and the public can co-design liveable cities where socially diverse communities can thrive.
+Anthony is a sociologist, urban planner with advanced geospatial statistics training, and former Senior [MADIP](https://www.abs.gov.au/about/data-services/data-integration/integrated-data/multi-agency-data-integration-project-madip) Data Specialist with the Australian Bureau of Statistics where they trained and supervise data scientists within the Big Data Pathways section. They are excited by the promise of smart cities and a socially sustainable global society starting from the neighbourhood-scale. Their overarching career objective is clearing the open and big data expertise barrier so that urban researchers and the public can co-design liveable cities where socially diverse communities can thrive.
 
 Education {data-icon=graduation-cap data-concise=true}
 --------------------------------------------------------------------------------
@@ -258,6 +261,16 @@ N/A
 Research Experience {data-icon=laptop}
 --------------------------------------------------------------------------------
 
+### Lecturer of Urban and Regional Planning
+
+The University of Southern Queensland 
+
+Springfield, Australia
+
+2024
+
+**Role**: Researcher (0.2FTE) focusing on Social Sustainability, Crime Prevention Through Environmental Design, identifying the barriers to active and public transport use, and accessing the social equity of land use and transport planning outcomes. 
+
 ### MADIP Data Specialist
 
 The Australian Bureau of Statistics' Big Data Pathways Section 
@@ -310,6 +323,37 @@ Brisbane, Australia
 
 Teaching Experience {data-icon=chalkboard-teacher}
 --------------------------------------------------------------------------------
+
+### Lecturer of Urban and Regional Planning
+
+The University of Southern Queensland 
+
+Springfield, Australia
+
+2024
+
+**Role**: Lecturer currently teaching (0.7FTE) planning structures and statutory planning, regional planning, sustainable urban design and development, and planning theory. Notably nominated and awarded the UniSQ *Stella Award for Teaching* while having receiving a 6 course load during first 12 months of appointment and while maintaining a high research output rate.  
+
+### PhD Supervisor 
+
+The University of Southern Queensland’s School of Surveying and Built Environment  
+
+Brisbane, Australia
+
+2023 - onwards
+
+Primary supervisor for 3 PhD candidates, and associate supervisor for 3 further PhD candidates contributing specifically social science and geospatial analytics expertise
+
+
+### PhD Supervisor 
+
+The University of Queensland’s School of Civil Engineering & School of Earth and Environmental Sciences 
+
+Brisbane, Australia
+
+2021 - 2023
+
+Supervised one PhD candidate to completion
 
 ### PhD Supervisor 
 
@@ -367,6 +411,27 @@ Brisbane, Australia
 Professional Experience {data-icon=suitcase}
 --------------------------------------------------------------------------------
 
+### National Co-convenor Urban Data Science Network
+
+The Planning Institute of Australia
+
+Brisbane, Australia
+
+2024 - 2025 (single term)
+
+**Role**: Developing a national framework for technical capabilities required from graduates and planning specialists
+
+### PlanTech Committee Member
+
+The Planning Institute of Australia
+
+Brisbane, Australia
+
+2023 - onwards
+
+**Role**: Developing a national framework for technical capabilities required from graduates and planning specialists
+
+
 ### The Early and Mid Career Researcher Representative
 
 The University of Queensland’s Faculty of Science Research Committee
@@ -420,6 +485,74 @@ N/A
 Current
 
 <!-- publications %>% arrange(desc(year), desc(cites)) %>% select(title, pubid) -->
+
+<!-- The pitfalls and benefits of using administrative data for internal migration research: an evaluation of Australia’s person level integrated data asset (plida) -->
+`r x <- "Wp0gIr-vW9MC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+<!-- Please Mind the Gap: Examining Regional Variations in Private Car Carbon Dioxide Emissions and Fuel Consumption The Case of Australia -->
+`r x <- "Manual1"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+<!-- The temporality of on-street parking–exploring the role of la -->
+`r x <- "Se3iqnhoufwC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+
+<!--  Planning students' conceptions of research -->
+
+`r x <- "qjMakFHDy7sC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+<!-- The temporality of on-street parking: exploring the role of land-use mix and change on parking dynamics -->
+
+`r x <- "7PzlFSSx8tAC"`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
 
 <!-- The role of household modality style in first and last mile travel mode choice -->
 `r x <- "5nxA0vEk-isC"`
@@ -499,19 +632,7 @@ N/A
 
 `r pub_stat("author")`
 
-<!-- The temporality of on-street parking: exploring the role of land-use mix and change on parking dynamics -->
 
-`r x <- "7PzlFSSx8tAC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
 
 <!-- The socio-spatial determinants of covid-19 diffusion: the impact of globalisation, settlement characteristics and population -->
 
@@ -653,19 +774,7 @@ N/A
 
 `r pub_stat("author")`
 
-<!--  Planning students' conceptions of research -->
 
-`r x <- "qjMakFHDy7sC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
 
 <!-- What can our cities do about sprawl, congestion and pollution? Tip: scrap car parking -->
 `r x <- "YsMSGLbcyi4C"`
@@ -834,6 +943,22 @@ Gold Coast, Queensland
 
 Professional Membership  {data-icon=id-card}
 --------------------------------------------------------------------------------
+
+### The Planning Institute Australian
+
+N/A
+
+N/A
+
+N/A
+
+### The Australian Institute of Traffic Planning and Management
+
+N/A
+
+N/A
+
+N/A
 
 ### The Institute of Australian Geographers
 
