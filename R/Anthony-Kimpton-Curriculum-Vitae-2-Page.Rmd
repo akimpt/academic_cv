@@ -1,0 +1,309 @@
+---
+title: Condensed Academic Curriculum Vitae
+author: Anthony Kimpton
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  pagedown::html_resume:
+    css: 
+      - override.css         # OVERIDE CERTAIN FUNCTIONS OF CSS
+      - resume               # DEFAULT FILE
+    # set it to true for a self-contained HTML page but it'll take longer to render
+    self_contained: false
+# uncomment this line to produce HTML and PDF in RStudio:
+knit: pagedown::chrome_print
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, cache = FALSE)
+library(scholar)
+library(tidyverse)
+library(janitor)
+library(stringr)
+```
+
+```{r publications, include=FALSE}
+id <- get_scholar_id(first_name = "Anthony", last_name = "Kimpton", affiliation = NA)
+
+publications <- get_publications(id) %>%
+  clean_names() %>% 
+  filter(!(pubid %in% c("YsMSGLbcyi4C", "4DMP91E08xMC", "d1gkVwhDpl0C"))) %>% 
+  transmute(title = str_to_sentence(title),
+         title = str_replace(title, "7. ", ""),
+         title = str_replace(title, "brisbane", "Brisbane"),
+         title = str_replace(title, "australia", "Australia"),
+         title = str_replace(title, "covid", "COVID"),
+         title = ifelse(pubid == "mVmsd5A6BfQC", "The pitfalls and benefits of using administrative data for internal migration research: An evaluation of Australia’s Person Level Integrated Data Asset (PLIDA)", title),
+         author = str_replace(author, "A Kimpton", "**A Kimpton**"),
+         author = sub(",([^,]*)$", " &\\1", author),
+         journal = str_to_title(journal),
+         journal = str_replace_all(journal, "And", "and"),
+         journal = str_replace_all(journal, "In", "in"),
+         journal = str_replace_all(journal, "Of", "of"),
+         journal = str_replace_all(journal, "To", "to"),
+         journal = str_replace_all(journal, "The", "the"),
+         journal = str_replace(journal, "^the", "The"),
+         journal = str_replace(journal, "Parking", "Parking: an International Perspective"),
+         journal = str_replace(journal, " Media Group", ""),
+         journal = str_replace(journal, " Media Trust", ""),
+         journal = ifelse(pubid == "mVmsd5A6BfQC", "Demographic Research", journal),
+         cites,
+         year,
+         year = ifelse(pubid == "mVmsd5A6BfQC", 2014, year),
+         pubid
+         ) %>% 
+  drop_na(journal) %>% 
+  drop_na(year)
+
+publications <- data_frame(title = c("Please Mind the Gap: Examining Regional Variations
+in Private Car Carbon Dioxide Emissions and Fuel Consumption The Case of Australia"),
+                           author = c("K Lim, Y Lu, **A Kimpton**, R Zahnow, T Li,  J Dodson, N Sipe, & J Corcoran"),
+                           journal = c("Journal of Transport Geography"),
+                           cites = c(0),
+                           year = c(2024),
+                           pubid = c("Manual1")) %>% 
+  rbind(publications)
+
+
+rank <- get_journalrank(journals=publications$journal) %>% 
+  clean_names() %>% 
+  transmute(journal = str_to_title(journal),
+         journal = str_replace_all(journal, "And", "and"),
+         journal = str_replace_all(journal, "In", "in"),
+         journal = str_replace_all(journal, "Of", "of"),
+         journal = str_replace_all(journal, "To", "to"),
+         journal = str_replace_all(journal, "The", "the"),
+         journal = str_replace(journal, "^the", "The"),
+         journal = str_replace(journal, "Parking", "Parking: an International Perspective"),
+         journal = str_replace(journal, " Media Group", ""),
+         journal = str_replace(journal, " Media Trust", ""),
+            sjr_best_quartile = as.character(sjr_best_quartile),
+            categories) %>%
+  drop_na()
+
+publications <- publications %>% 
+  #left_join(impact, by = "journal") %>% 
+  left_join(rank, by = "journal") %>% 
+  mutate(journal = str_replace(journal, "^", "*"),
+         journal = str_replace(journal, "$", "*"),
+         sjr_best_quartile = ifelse(pubid == "ufrVoPGSRksC" | pubid == "roLk4NBRz8UC", "Q2", "Q1"),
+         year = ifelse(pubid == "_FxGoFyzp5QC", 2021, year)) %>% 
+  arrange(desc(year), author, title) %>% 
+  mutate(sjr_best_quartile) %>% 
+  distinct(title, .keep_all = TRUE) %>% 
+  arrange(desc(year), desc(author))
+
+# the_conversation <- peer_reviewed %>% 
+#   filter(journal == "*The Conversation*")
+# 
+# peer_reviewed <- peer_reviewed %>% 
+#   filter(journal != "*The Conversation*") 
+
+history_id <- get_citation_history(id)
+
+#history_x <- get_article_cite_history(id, "9yKSN-GCB0IC")
+
+#predicted_h_index <- predict_h_index(id)
+
+#DE Acuna, S Allesina, KP Kording (2012) Future impact: Predicting scientific success. Nature 489, 201-202. doi: 10.1038/489201a.
+
+coauthor_network <- get_coauthors(id)
+
+profile <- get_profile(id)
+
+h_index <- profile$h_index
+
+total_cites <- profile$total_cites
+
+pub_stat <- function(y) {
+  publications %>% filter(pubid == x) %>% slice_head(n = 1) %>% pull(y)
+}
+```
+
+Aside
+================================================================================
+
+Contact Info {#contact}
+--------------------------------------------------------------------------------
+
+- <i class="fa fa-envelope"></i> [a.kimpton@uq.edu.au](a.kimpton@unisq.edu.au)
+- <i class="fa fa-github"></i> [https://github.com/akimpt](https://github.com/akimpt)
+- <i class="fa fa-phone"></i> +61 412 452 471
+- For more information, please contact me via email.
+
+Skills {#skills}
+--------------------------------------------------------------------------------
+
+- Geospatial, temporal, textual, and statistical modelling
+
+- R, Stata, ArcGIS, Python, SQL, Bash, Docker, HTML, and CSS
+
+- Github and rMarkdown workflow for transparent and efficient generation of manuscripts, reports, presentations, APIs, data visualisations, and interactive web applications
+
+Main
+================================================================================
+
+Anthony Kimpton {#title}
+--------------------------------------------------------------------------------
+
+<h5>Condensed Academic Curriculum Vitae</h5>
+
+Anthony is a **lecturer of urban and regional planning** with the University of Southern Queensland (UniSQ) with **expertise** that includes land use and transport planning and policy, social survey development and deployment, advanced geospatial analytics, and data science. Their **experience** includes senior data scientist with the Australian Bureau of Statistics' (ABS) Big Data Pathways team, transport research web application developer with the Australian Urban Research Infrastructure Network (AURIN), postdoctoral research fellow with the Queensland Department of Transport and Main Roads (TMR), and research assistant on the Australian Research Council (ARC) funded Barriers and Facilitators of Neighbourhood Networks and Cohesion Discovery Project that examined community resilience  during the **2011 Brisbane Floods**.
+
+They are the **Queensland Convenor** for Planning Institute of Australia's (PIA) Urban Data Network, and their **memberships** include invited member of the Toowoomba Regional Council's Regional Active and Public Transport Advisory Committee (RAPTAC), and PIA's PlanTech and Education sub-committees. They **supervise** PhD, Masters, and Honours student on topics including **cultural heritage management of vernacular architecture**, local government policy for creating environments that support physical activity, micromobility planning for climate positive Olympics and mega sporting events, active school transport, light rail planning in regional towns, cycling road traffic stress, transport and traffic accident modelling, and public transport social equity. 
+
+Their overarching **career goal** is clearing the big data and spatial analytics expertise barrier. This ensures that more researchers, practitioners, and the public can collaborate effectively and transparently in co-designing more liveable cities and towns, which are designed from the neighbourhood up and where socially diverse communities can thrive.
+
+Selected Education {data-icon=graduation-cap data-concise=true}
+--------------------------------------------------------------------------------
+
+### Doctor of Philosophy
+The University of Queensland’s School of Earth and Environmental Sciences
+
+Brisbane, Australia
+
+2018
+
+**Thesis**: The Sociability of Urban Greenspace: An Exploration of How Public Parks and Private Backyards Influence the Social Sustainability of Urban Communities
+
+**Geography & Sociology**: Research design and scoping, modelling including logistic, negative binomial, linear regression, spatial and multi-level; and cluster analyses
+
+### Bachelor of Arts
+
+The University of Queensland’s School of Social Sciences
+
+Brisbane, Australia
+
+2011
+
+**Sociology & Archaeology**: Statistical modeling; qualitative interviewing; geospatial analysese and mapping; and fieldwork; laboratory methods and procedures
+
+Selected Grants and Awards {data-icon=trophy}
+--------------------------------------------------------------------------------
+
+### $89,342 [High Impact Projects Grant](https://aurin.org.au/about-aurin/projects/aurin-high-impact-projects/)
+
+The Australian Urban Research Infrastructure Network
+
+Melbourne, Australia
+
+2021
+
+**Aim**: Lead the development of the Green Australian Vehicle Ownership (GreenAVO) service that harvests and links Australian state and territory vehicle registration APIs to reveal spatiotemporal trends in vehicle ownership for tracking, predicting, and accelerating the national transition towards hybrid and electric vehicles.
+
+### [Dean's Award for Outstanding HDR Thesis](https://my.uq.edu.au/information-and-services/higher-degree-research/my-thesis/deans-award-outstanding-hdr-theses)
+
+The University of Queensland’s Graduate School
+
+N/A
+
+2020
+
+**Criteria**: Both thesis examiners Professors Alexis Comber and Kate Bowers commending the 2018 thesis as an outstanding theoretical, empirical, and applied research contribution requiring no changes.
+
+Selected Research Experience {data-icon=laptop}
+--------------------------------------------------------------------------------
+
+### Lecturer of Urban and Regional Planning
+
+The University of Southern Queensland 
+
+Springfield, Australia
+
+2024
+
+**Role**: Researcher (0.2FTE) focusing on community social sustainability, participatory planning and accessing the social equity of land use and transport planning outcomes. 
+
+### MADIP Data Specialist
+
+The Australian Bureau of Statistics' Big Data Pathways Section 
+
+Brisbane, Australia
+
+2022
+
+**Role**: Investigate the extent to which big data (i.e., government agency records) can replace survey content collected by the Australian Bureau of Statistics.
+
+### Postdoctoral Research Fellow
+
+The University of Queensland’s School of Earth and Environmental Sciences 
+
+Brisbane, Australia
+
+2022
+
+**Role**: Model flood impacts, community social processes, migration, and travel behaviour and analyse policy standards and outcomes.  
+
+### Web Service and Application Developer
+
+The Australian Urban Research Infrastructure Network and the University of Queensland’s School of Civil Engineering 
+
+Brisbane, Australia
+
+2021
+
+**Role**: Develop transport research containerised microservices including interactive spatial data dashboards, and application programming interfaces (API)    
+
+Selected Publications   {data-icon=file}
+--------------------------------------------------------------------------------
+
+### Overall (Google Scholar `r format(Sys.time(), '%d/%m/%y')`)
+
+Total cites = `r total_cites` and h-index = `r round(h_index,0)`
+
+N/A
+
+Current
+
+<!-- publications %>% arrange(desc(year), desc(cites)) %>% select(title, pubid) -->
+
+<!-- Retaining permanent and temporary immigrants in rural Australia: place‐based and individual determinants -->
+`r x <- "IWHjjKOFINEC"`
+
+### `r pub_stat("title")`
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+<!-- The pitfalls and benefits of using administrative data for internal migration research -->
+`r x <- "Wp0gIr-vW9MC"`
+
+### `r pub_stat("title")`
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+<!-- Community resilience to crime: a study of the 2011 Brisbane flood -->
+`r x <- "8k81kl-MbHgC"`
+
+### `r pub_stat("title")` 
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+Selected Conference Presentations {data-icon=microphone}
+--------------------------------------------------------------------------------
+
+### Perspectives on Resilience: A Case Study of the 2011 Brisbane Floods
+
+Disaster and Emergency Management Conference
+
+Gold Coast, Queensland
+
+2014
+
+**A. Kimpton** & J. Corcoran
