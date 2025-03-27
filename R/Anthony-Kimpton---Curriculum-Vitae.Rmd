@@ -43,44 +43,30 @@ browseURL("https://www.linkedin.com/pulse/rlinkedin-more-long-life-linkedin-api-
 id <- get_scholar_id(first_name = "Anthony", last_name = "Kimpton", affiliation = NA)
 
 publications <- get_publications(id) %>%
-  clean_names() %>% 
-  filter(!(pubid %in% c("YsMSGLbcyi4C", "4DMP91E08xMC", "d1gkVwhDpl0C"))) %>% 
-  transmute(title = str_to_sentence(title),
-         title = str_replace(title, "7. ", ""),
-         title = str_replace(title, "brisbane", "Brisbane"),
-         title = str_replace(title, "australia", "Australia"),
-         title = str_replace(title, "covid", "COVID"),
-         title = ifelse(pubid == "mVmsd5A6BfQC", "The pitfalls and benefits of using administrative data for internal migration research: An evaluation of Australia’s Person Level Integrated Data Asset (PLIDA)", title),
-         author = str_replace(author, "A Kimpton", "**A Kimpton**"),
-         author = sub(",([^,]*)$", " &\\1", author),
-         journal = str_to_title(journal),
-         journal = str_replace_all(journal, "And", "and"),
-         journal = str_replace_all(journal, "In", "in"),
-         journal = str_replace_all(journal, "Of", "of"),
-         journal = str_replace_all(journal, "To", "to"),
-         journal = str_replace_all(journal, "The", "the"),
-         journal = str_replace(journal, "^the", "The"),
-         journal = str_replace(journal, "Parking", "Parking: an International Perspective"),
-         journal = str_replace(journal, " Media Group", ""),
-         journal = str_replace(journal, " Media Trust", ""),
-         journal = ifelse(pubid == "mVmsd5A6BfQC", "Demographic Research", journal),
-         cites,
-         year,
-         year = ifelse(pubid == "mVmsd5A6BfQC", 2014, year),
-         pubid
-         ) %>% 
-  drop_na(journal) %>% 
-  drop_na(year)
-
-publications <- data_frame(title = c("Please Mind the Gap: Examining Regional Variations
-in Private Car Carbon Dioxide Emissions and Fuel Consumption The Case of Australia"),
-                           author = c("K Lim, Y Lu, **A Kimpton**, R Zahnow, T Li,  J Dodson, N Sipe, & J Corcoran"),
-                           journal = c("Journal of Transport Geography"),
-                           cites = c(0),
-                           year = c(2024),
-                           pubid = c("Manual1")) %>% 
-  rbind(publications)
-
+  clean_names() %>%
+  transmute(
+    title = str_to_sentence(title),
+    author = str_replace(author, "A Kimpton", "**A Kimpton**"),
+    author = sub(",([^,]*)$", " &\\1", author),
+    journal = str_to_title(journal),
+    journal = str_replace_all(journal, "And", "and"),
+    journal = str_replace_all(journal, "In", "in"),
+    journal = str_replace_all(journal, "Of", "of"),
+    journal = str_replace_all(journal, "To", "to"),
+    journal = str_replace_all(journal, "The", "the"),
+    journal = str_replace(journal, "^the", "The"),
+    cites,
+    year
+  ) %>% 
+  drop_na(year) %>% 
+  mutate(
+    title = str_replace(title, "person level integrated data asset (plida)", "Person Level Integrated Data Asset (PLIDA) of Australia"),
+    title = str_replace(title, "australia", "Australia"),
+    title = str_replace(title, "brisbane", "Brisbane"),
+    title = str_replace(title, "covid", "COVID"),
+    title = str_replace(title, "park ‘n’ride", "Park ‘n’ Ride"),
+    title = str_replace(title, "pnr", "PnR")
+  )
 
 rank <- get_journalrank(journals=publications$journal) %>% 
   clean_names() %>% 
@@ -94,7 +80,8 @@ rank <- get_journalrank(journals=publications$journal) %>%
          journal = str_replace(journal, "Parking", "Parking: an International Perspective"),
          journal = str_replace(journal, " Media Group", ""),
          journal = str_replace(journal, " Media Trust", ""),
-            sjr_best_quartile = as.character(sjr_best_quartile),
+         sjr_best_quartile = as.character(sjr_best_quartile),
+         sjr_best_quartile = ifelse(sjr_best_quartile != "Q1", "", sjr_best_quartile),
             categories) %>%
   drop_na()
 
@@ -102,13 +89,10 @@ publications <- publications %>%
   #left_join(impact, by = "journal") %>% 
   left_join(rank, by = "journal") %>% 
   mutate(journal = str_replace(journal, "^", "*"),
-         journal = str_replace(journal, "$", "*"),
-         sjr_best_quartile = ifelse(pubid == "ufrVoPGSRksC" | pubid == "roLk4NBRz8UC", "Q2", "Q1"),
-         year = ifelse(pubid == "_FxGoFyzp5QC", 2021, year)) %>% 
+         journal = str_replace(journal, "$", "*")) %>% 
   arrange(desc(year), author, title) %>% 
-  mutate(sjr_best_quartile) %>% 
   distinct(title, .keep_all = TRUE) %>% 
-  arrange(desc(year), desc(author))
+  mutate(row = row_number())
 
 # the_conversation <- peer_reviewed %>% 
 #   filter(journal == "*The Conversation*")
@@ -133,10 +117,10 @@ h_index <- profile$h_index
 total_cites <- profile$total_cites
 
 pub_stat <- function(y) {
-  publications %>% filter(pubid == x) %>% slice_head(n = 1) %>% pull(y)
+  publications %>% filter(row == x) %>% slice_head(n = 1) %>% pull(y)
 }
 
-
+publications$title
 ```
 
 Aside
@@ -157,7 +141,7 @@ Skills {#skills}
 
 - Advanced capabilities with R, Stata, ArcGIS, Python, SQL, and to a lesser extent, Bash, Docker, HTML, and CSS
 
-- Streamlined Github and rMarkdown workflow for generating and updating manuscripts, reports, presentations, APIs, interactive web pages and applications, and for example, this resume!
+- Streamlined Github and rMarkdown workflow for generating and updating manuscripts, reports (including this CV), presentations, APIs, interactive web pages and applications.
 
 Main
 ================================================================================
@@ -167,7 +151,7 @@ Anthony Kimpton {#title}
 
 <h5>Academic Curriculum Vitae</h5>
 
-Anthony is a sociologist, urban planner with advanced geospatial statistics training, and former Senior [MADIP](https://www.abs.gov.au/about/data-services/data-integration/integrated-data/multi-agency-data-integration-project-madip) Data Specialist with the Australian Bureau of Statistics where they trained and supervise data scientists within the Big Data Pathways section. They are excited by the promise of smart cities and a socially sustainable global society starting from the neighbourhood-scale. Their overarching career objective is clearing the open and big data expertise barrier so that urban researchers and the public can co-design liveable cities where socially diverse communities can thrive.
+Anthony is an urban and regional planner with advanced geospatial statistics expertise, and a former Senior [MADIP](https://www.abs.gov.au/about/data-services/data-integration/integrated-data/multi-agency-data-integration-project-madip) Data Specialist with the Australian Bureau of Statistics where they trained and supervise data scientists within the Big Data Pathways section. They are excited by the promise of smart cities and a socially sustainable global society starting from the neighbourhood-scale. Their overarching career objective is clearing the open and big data expertise barrier so that urban researchers and the public can co-design liveable cities where socially diverse communities can thrive.
 
 Education {data-icon=graduation-cap data-concise=true}
 --------------------------------------------------------------------------------
@@ -269,7 +253,7 @@ Springfield, Australia
 
 2024
 
-**Role**: Researcher (0.2FTE) focusing on Social Sustainability, Crime Prevention Through Environmental Design, identifying the barriers to active and public transport use, and accessing the social equity of land use and transport planning outcomes. 
+**Role**: Researcher (0.2FTE) focusing on the intersection between land use and transport planning, and identifying the barriers to walking, cycling public transport, and public physical activity, and accessing the social equity of land use and transport planning outcomes.
 
 ### MADIP Data Specialist
 
@@ -332,7 +316,15 @@ Springfield, Australia
 
 2024
 
-**Role**: Lecturer currently teaching (0.7FTE) planning structures and statutory planning, regional planning, sustainable urban design and development, and planning theory. Notably nominated and awarded the UniSQ *Stella Award for Teaching* while having receiving a 6 course load during first 12 months of appointment and while maintaining a high research output rate.  
+**Role**: Lecturer currently teaching (0.7FTE) planning structures and statutory planning, regional planning, sustainable urban design and development, and planning theory. Notably nominated and awarded the UniSQ *Stella Award for Teaching* while having receiving a 6 course load during first 12 months of appointment and while maintaining a high research output rate.
+
+::: concise
+- **URP2001: Planning Structures and Statutory Planning**: Develop and present lectures on the role of statutory planning throughout the 3 tiers of Australian  Government
+- **URP3200: Regional Planning**: Develop and deliver lectures on regional strategic planning
+- **URP3201: Sustainable Urban Design and Planning**: Develop and deliver lectures on sustainability audits and master plan design
+- **URP4002: Planning Theory**: Develop and deliver lectures on the theoretical and historical foundations of the planning profession
+:::
+
 
 ### PhD Supervisor 
 
@@ -342,10 +334,9 @@ Brisbane, Australia
 
 2023 - onwards
 
-Primary supervisor for 3 PhD candidates, and associate supervisor for 3 further PhD candidates contributing specifically social science and geospatial analytics expertise
+Primary supervisor for 2 PhD candidates, associate supervisor for 1 further PhD candidate, and supervising 2 masters candidates, and 4 honours candidates contributing specifically planning, policy, social science and geospatial analytics expertise
 
-
-### PhD Supervisor 
+### PhD Supervisor
 
 The University of Queensland’s School of Civil Engineering & School of Earth and Environmental Sciences 
 
@@ -484,38 +475,10 @@ N/A
 
 Current
 
-<!-- publications %>% arrange(desc(year), desc(cites)) %>% select(title, pubid) -->
 
-<!-- The pitfalls and benefits of using administrative data for internal migration research: an evaluation of Australia’s person level integrated data asset (plida) -->
-`r x <- "Wp0gIr-vW9MC"`
+`r x <- 1`
 
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-<!-- Please Mind the Gap: Examining Regional Variations in Private Car Carbon Dioxide Emissions and Fuel Consumption The Case of Australia -->
-`r x <- "Manual1"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-<!-- The temporality of on-street parking–exploring the role of la -->
-`r x <- "Se3iqnhoufwC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+### `r pub_stat("title")`
 
 `r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
 
@@ -526,27 +489,12 @@ N/A
 `r pub_stat("author")`
 
 
-<!--  Planning students' conceptions of research -->
 
-`r x <- "qjMakFHDy7sC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-<!-- The temporality of on-street parking: exploring the role of land-use mix and change on parking dynamics -->
-
-`r x <- "7PzlFSSx8tAC"`
+`r x <- 2`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+`r pub_stat("journal")`
 
 N/A
 
@@ -554,73 +502,8 @@ N/A
 
 `r pub_stat("author")`
 
-<!-- The role of household modality style in first and last mile travel mode choice -->
-`r x <- "5nxA0vEk-isC"`
 
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-<!-- Neighbourhood places, collective efficacy and crime: a longitudinal perspective --> 
-`r x <- "UebtZRa9Y70C"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-<!-- Weather to scoot? How weather shapes shared e-scooter ridership patterns -->
-`r x <- "ZeXyd9-uunAC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-<!-- Community resilience to crime: a study of the 2011 Brisbane flood -->
-`r x <- "dhFuZR0502QC"`
-
-### `r pub_stat("title")`  (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-<!-- E-scooters are becoming wildly popular–but we have to factor in the weather -->
-`r x <- "IWHjjKOFINEC"`
-
-### `r pub_stat("title")`  (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (popular media)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-<!-- Neighbourhood correlates of average population walking: using aggregated, anonymised mobile phone data to identify where people walk -->
-`r x <- "L8Ckcad2t8MC"`
+`r x <- 3`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
@@ -633,14 +516,11 @@ N/A
 `r pub_stat("author")`
 
 
+`r x <- 4`
 
-<!-- The socio-spatial determinants of covid-19 diffusion: the impact of globalisation, settlement characteristics and population -->
+### `r pub_stat("title")`
 
-`r x <- "Se3iqnhoufwC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
 
 N/A
 
@@ -648,13 +528,12 @@ N/A
 
 `r pub_stat("author")`
 
-<!-- Contemporary parking policy, practice, and outcomes in three large Australian cities -->
 
-`r x <- "_FxGoFyzp5QC"`
+`r x <- 5`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
 
 N/A
 
@@ -662,13 +541,12 @@ N/A
 
 `r pub_stat("author")`
 
-<!-- Sociospatial factors explaining daylight saving preferences in Australia -->
 
-`r x <- "hqOjcs7Dif8C"`
+`r x <- 6`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
 
 N/A
 
@@ -676,13 +554,12 @@ N/A
 
 `r pub_stat("author")`
 
-<!-- Explaining the railheading travel behaviour with home location, park `n` ride characteristics, and the built environment to strengthen multimodalism -->
 
-`r x <- "roLk4NBRz8UC"`
+`r x <- 7`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
 
 N/A
 
@@ -690,13 +567,12 @@ N/A
 
 `r pub_stat("author")`
 
-<!-- Parking policy and bay-sharing for unmooring automobility from cities -->
 
-`r x <- "0EnyYjriUFMC"`
+`r x <- 9`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (book chapter)
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
 
 N/A
 
@@ -704,13 +580,12 @@ N/A
 
 `r pub_stat("author")`
 
-<!-- Parking behavior: park ‘n’ ride (pnr) to encourage multimodalism in Brisbane -->
 
-`r x <- "W7OEmFMy1HYC"`
+`r x <- 10`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
 
 N/A
 
@@ -718,13 +593,12 @@ N/A
 
 `r pub_stat("author")`
 
-<!-- Setting the agenda for parking research in other cities -->
 
-`r x <- "Y0pCki6q_DkC"`
+`r x <- 11`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (book chapter)
+`r pub_stat("journal")`
 
 N/A
 
@@ -732,41 +606,12 @@ N/A
 
 `r pub_stat("author")`
 
-<!-- Upset diagrams for examining whether parking maximums influence modal choice and car holdings -->
 
-`r x <- "zYLM7Y9cAGgC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-<!-- Visualising Australia's older population using grid maps -->
-
-`r x <- "ufrVoPGSRksC"`
+`r x <- 12`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
-
-N/A
-
-`r pub_stat("year")`
-
-`r pub_stat("author")`
-
-<!-- The temporality of place: constructing a temporal typology of crime in commercial precincts -->
-
-`r x <- "eQOLeE2rZwMC"`
-
-### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
-
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
 
 N/A
 
@@ -776,12 +621,11 @@ N/A
 
 
 
-<!-- What can our cities do about sprawl, congestion and pollution? Tip: scrap car parking -->
-`r x <- "YsMSGLbcyi4C"`
+`r x <- 13`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (popular media)
+`r pub_stat("journal")` 
 
 N/A
 
@@ -789,12 +633,12 @@ N/A
 
 `r pub_stat("author")`
 
-<!-- Cycling and walking are short-changed when it comes to transport funding in Australia -->
-`r x <- "WF5omc3nYNoC"`
+
+`r x <- 14`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (popular media)
+`r pub_stat("journal")`
 
 N/A
 
@@ -802,13 +646,12 @@ N/A
 
 `r pub_stat("author")`
 
-<!-- Why driverless vehicles should not be given unchecked access to our cities -->
 
-`r x <- "2osOgNQ5qMEC"`
+`r x <- 15`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (popular media)
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
 
 N/A
 
@@ -816,13 +659,12 @@ N/A
 
 `r pub_stat("author")`
 
-<!-- A spatial analytic approach for classifying greenspace and comparing greenspace social equity -->
 
-`r x <- "9yKSN-GCB0IC"`
+`r x <- 16`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+`r pub_stat("journal")`
 
 N/A
 
@@ -830,13 +672,12 @@ N/A
 
 `r pub_stat("author")`
 
-<!-- Greenspace and crime: an analysis of greenspace types, neighboring composition, and the temporal dimensions of crime -->
 
-`r x <- "Tyk-4Ss8FVUC"`
+`r x <- 17`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
 
 N/A
 
@@ -844,13 +685,117 @@ N/A
 
 `r pub_stat("author")`
 
-<!-- Greenspace and place attachment: do greener suburbs lead to greater residential place attachment? -->
 
-`r x <- "IjCSPb-OGe4C"`
+
+`r x <- 18`
+
+### `r pub_stat("title")`
+
+`r pub_stat("journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+
+`r x <- 19`
 
 ### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
 
-`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`)
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+
+`r x <- 20`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+
+`r x <- 21`
+
+### `r pub_stat("title")`
+
+`r pub_stat("journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 22`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+
+
+`r x <- 23`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+
+`r x <- 28`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+
+`r x <- 29`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+
+`r x <- 31`
+
+### `r pub_stat("title")` (cites = `r pub_stat("cites")`)
+
+`r pub_stat("journal")` (sjr = `r pub_stat("sjr_best_quartile")`) 
 
 N/A
 
