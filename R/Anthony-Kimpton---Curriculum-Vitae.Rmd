@@ -88,7 +88,7 @@ publications <- get_publications(id) %>%
     cites,
     year,
     formated_cites = ifelse(cites == 0, "", paste0("(cites = ", cites, ")")),
-    formatted_title = paste0("**", title, "** ", formated_cites)
+    formatted_title = paste0(title, " ", formated_cites)
   ) %>%
   clean_fn() %>% 
   drop_na(journal) %>% 
@@ -138,11 +138,11 @@ Contact Info {#contact}
 Skills {#skills}
 --------------------------------------------------------------------------------
 
-- Geospatial, temporal, textual, and machine learning statistical modelling
+- Planning policy, geospatial, temporal, textual, and machine learning statistical modelling
 
 - Advanced capabilities with R, Stata, ArcGIS, Python, SQL, and to a lesser extent, Bash, Docker, HTML, and CSS
 
-- Streamlined Github and rMarkdown workflow for generating and updating manuscripts, reports (including this CV), presentations, APIs, interactive web pages and applications.
+- Streamlined Github and rMarkdown workflow for generating and updating manuscripts, reports (including this CV), presentations, APIs, interactive web pages and software.
 
 Main
 ================================================================================
@@ -153,6 +153,8 @@ Anthony Kimpton {#title}
 <h5>Academic Curriculum Vitae</h5>
 
 Anthony is an urban and regional planner with advanced geospatial statistics expertise, and a former Senior [MADIP](https://www.abs.gov.au/about/data-services/data-integration/integrated-data/multi-agency-data-integration-project-madip) Data Specialist with the Australian Bureau of Statistics where they trained and supervise data scientists within the Big Data Pathways section. They are excited by the promise of smart cities and a socially sustainable global society starting from the neighbourhood-scale. Their overarching career objective is clearing the open and big data expertise barrier so that urban researchers and the public can co-design liveable cities where socially diverse communities can thrive.
+
+Anthony's research productivity and impact are exceptional relative to research opportunity. For instance, his H-Index is 12, his peer-reviewed research productivity is 164% (23/14) and citation rate is 870% (609/70) of the Australian Level-B planning academic average ([Pojani et al. 2022](https://journals.sagepub.com/doi/abs/10.1177/0739456X18804330); Google Scholar 22/04/25). He has 20 publications listed on SciVal including 12 in the top 10% of journals, 2 among the top 10% of cited papers, and an average field weighted citation impact of 2.50 in land use and transport planning (SciVAl 12/06/25). They also rank in the top 1% worldwide prominence percentile in fields including electric vehicle adoption, health disparity, physical activity, demography, and residence characteristics; and the top 2% in fields including land use, urban transportation, eScooters and Transportation.
 
 Education {data-icon=graduation-cap data-concise=true}
 --------------------------------------------------------------------------------
@@ -260,7 +262,7 @@ The University of Southern Queensland
 
 Springfield, Australia
 
-2024
+present - 2023
 
 **Role**: Researcher (0.2FTE) focusing on the intersection between land use and transport planning, and identifying the barriers to walking, cycling public transport, and public physical activity, and accessing the social equity of land use and transport planning outcomes.
 
@@ -270,7 +272,7 @@ The Australian Bureau of Statistics' Big Data Pathways Section
 
 Brisbane, Australia
 
-2022
+2023 - 2022
 
 **Role**: Investigate the extent to which government records can replace survey content collected by the Australian Bureau of Statistics. They are currently investigating dwelling structure and location (ABS big data), income tax records (ATO big data), and government payments (DSS and DVA big data) to replace over 120 survey questions collected from 45k Australians every 2 years. Further,  they supervise graduate data scientists investigating disability (NDIS big data) and concession card (DSS big data).
 
@@ -300,7 +302,7 @@ The Queensland Department of Transport and Main Roads & The University of Queens
 
 Brisbane, Australia
 
-2018 - 2020
+2020 - 2018
 
 **Role**: Review Australian land use and transport policy, examine land use and census data to determine how parking supply aligns with policy and influences urban mobility using the R (programming language) for all GIS, statistical modelling, and reporting including the following project page: [https://parks-uq.github.io/](https://parks-uq.github.io/)  
 
@@ -310,7 +312,7 @@ The University of Queensland’s School of Geography, Planning, and Environmenta
 
 Brisbane, Australia
 
-2013-2018
+2018 - 2013
 
 **Role**: Review community sociology and environmental criminology research literature focusing on how natural disasters impact community sociability, and examine social survey, crime incident, census, flood, and administrative data using ArcGIS for spatial analyses and cartography, and Stata for statistical modelling and data visualization
 
@@ -323,7 +325,7 @@ The University of Southern Queensland
 
 Springfield, Australia
 
-2024
+present - 2023
 
 **Role**: Lecturer currently teaching (0.7FTE) planning structures and statutory planning, regional planning, sustainable urban design and development, and planning theory. Notably nominated and awarded the UniSQ *Stella Award for Teaching* while having receiving a 6 course load during first 12 months of appointment and while maintaining a high research output rate that nears triple the UniSQ Level B employee expectations framework. My teacching delivery raised the URP3201 end of semester mean from 3.6 (2023; n = 14) to 4.1 (2024; n = 13) immediately upon staring at UniSQ. 
 
@@ -342,7 +344,7 @@ The University of Southern Queensland’s School of Surveying and Built Environm
 
 Brisbane, Australia
 
-2023 - onwards
+present - 2023
 
 Primary supervisor for 2 PhD projects, 1 masters, 4 honours, and 1 completed honours project. Associate supervisor for 1 PhD project and 1 masters project. These span disciplines including land use and transport planning, heritage management, civil engineering, and public health where I contribute planning, policy, social science and geospatial analytics expertise.
 
@@ -353,7 +355,7 @@ The University of Queensland’s School of Civil Engineering & School of Earth a
 
 Brisbane, Australia
 
-2021 - 2023
+2023 - 2021
 
 Associate supervised 2 PhD candidates to completion and 1 honours student
 
@@ -364,7 +366,7 @@ The University of Queensland’s School of Earth and Environmental Sciences
 
 Brisbane, Australia
 
-2016 - present
+2021 - 2016
 
 **Teaching Evaluations**: Ranging 4.2 to 4.5 on a 5-point scale with 4.3 most recently awarded for both online and face-to-face delivery 
 
@@ -380,7 +382,7 @@ The University of Queensland’s School of Earth and Environmental Sciences
 
 Brisbane, Australia
 
-2016 - 2017
+2017 - 2016
 
 **Role**: Invited and employed to develop and deliver presentations at high schools, career open days, and high school teaching conferences to promote geography, planning, environmental management, and geology
 
@@ -390,7 +392,7 @@ The University of Queensland’s School of Earth and Environmental Sciences & Sc
 
 Brisbane, Australia
 
-2013 - 2018
+2018 - 2013
 
 **Teaching Evaluations**: Ending with 4.7 on a 5-point scale for face-to-face delivery and consistently high evaluations created opportunities to lecture    
 
@@ -410,7 +412,7 @@ Toowoomba Regional Council (TRC)
 
 Toowoomba, Australia
 
-2024 - 2025 (single term)
+2025 (single term)
 
 **Role**: Provide transport planning research, policy, and implementation recommendations for TRC's transport planning projects
 
@@ -421,7 +423,7 @@ The Planning Institute of Australia
 
 Brisbane, Australia
 
-2024 - 2025 (single term)
+ongoing - 2024 
 
 **Role**: Developing a national framework for technical capabilities required from graduates and planning specialists
 
@@ -431,7 +433,7 @@ The Planning Institute of Australia
 
 Brisbane, Australia
 
-2023 - onwards
+onging - 2023
 
 **Role**: Developing a national framework for technical capabilities required from graduates and planning specialists
 
@@ -442,7 +444,7 @@ The University of Queensland’s Faculty of Science Research Committee
 
 Brisbane, Australia
 
-2019 - 2020
+2020 - 2019
 
 **Role**: Invited to represent EMCRs at monthly faculty research committee meetings chaired by the faculty Associate Dean of Research
 
@@ -452,7 +454,7 @@ The University of Queensland’s School of Earth and Environmental Sciences Earl
 
 Brisbane, Australia
 
-2019 - 2020
+2020 - 2019
 
 **Role**: Invited to represent urban planning and geography ECRs at monthly school meetings, develop grant guidelines and applications, and evaluate these applications
 
@@ -462,7 +464,7 @@ N/A
 
 N/A
 
-2018 - present
+2018
 
 **Role**: Examine RhD milestones and theses on topics including environmental criminology, urban sociology, demography, land use and transport planning, and urban ecology 
 
@@ -502,8 +504,379 @@ N/A
 `r pub_stat("author")`
 
 
+`r x <- 2`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+
+`r x <- 3`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 4`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 5`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 6`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 7`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 8`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 9`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 10`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 11`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+
+`r x <- 12`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+
+`r x <- 13`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 14`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 15`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 16`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 17`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 18`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 19`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 20`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 21`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+
+`r x <- 22`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+
+`r x <- 23`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 24`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 25`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 26`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 27`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+`r x <- 28`
+
+### `r pub_stat("formatted_title")`
+
+`r pub_stat("formated_journal")`
+
+N/A
+
+`r pub_stat("year")`
+
+`r pub_stat("author")`
+
+
 Conference Presentations {data-icon=microphone}
 --------------------------------------------------------------------------------
+
+###  [Chair City Movement and Infrastructure Track](https://absoluteevents.eventsair.com/soac2025/track-co-chairs)
+
+State of Australian Cities 2025
+
+Brisbane, Australia
+
+2025
+
+**A. Kimpton**
+
+### [Assessing our 10/15/20/30-minute cities/neighbourhoods policy outcomes](https://www.aitpm.com.au/events/online-conference-series/2024-25-online-technical-conference-series/sessions/view-session-reimagining-urban-form-parking-accessibility-and-emerging-technolog)
+
+AITPM Online Technical Conference Series
+
+Online
+
+2025
+
+**A. Kimpton**
+
+### [Multimodal Routing Methods for Supporting Sustainable Mobilities](https://www.aitpm.com.au/events/current-events/qld-2/qld-2024/toowoomba-technical-seminar-wednesday-5-june-2024)
+
+AITPM Toowoomba Technical Seminar
+
+Toowoomba, Australia
+
+2024
+
+**A. Kimpton**
+
+### [Introduction to chrono-urbanism and spatial networks in R](https://resbaz.github.io/resbaz2023qld/speakers/)
+
+ResBazQld 2023
+
+Brisbane, Australia
+
+2023
+
+**A. Kimpton**
+
 
 ### Capturing Change to Daily Mobility (and Immobility)
 
@@ -730,7 +1103,7 @@ N/A
 
 ### Professor Rebecca Wickes
 
-Former Director for the Monash Migration and Inclusion Centre
+Director of the Griffith Criminology Institiute
 
 N/A
 
